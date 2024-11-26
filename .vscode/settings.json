@@ -1,0 +1,131 @@
+// This section configures vscode settings
+{
+  // Sonar lint connect
+  // "sonarlint.connectedMode.project":
+
+  // ============================ intelisense ============================
+  // Controls if quick suggestions should show up while typing
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": "inline",
+    "strings": "inline"
+  },
+
+  // Controls whether suggestions should be accepted on commit characters. For example, in JavaScript, the semi-colon (`;`) can be a commit character that accepts a suggestion and types that character.
+  "editor.acceptSuggestionOnCommitCharacter": true,
+
+  // Controls if suggestions should be accepted on 'Enter' - in addition to 'Tab'. Helps to avoid ambiguity between inserting new lines or accepting suggestions. The value 'smart' means only accept a suggestion with Enter when it makes a textual change
+  "editor.acceptSuggestionOnEnter": "on",
+
+  // Controls the delay in ms after which quick suggestions will show up.
+  "editor.quickSuggestionsDelay": 10,
+
+  // Controls if suggestions should automatically show up when typing trigger characters
+  "editor.suggestOnTriggerCharacters": true,
+
+  // Controls if pressing tab inserts the best suggestion and if tab cycles through other suggestions
+  "editor.tabCompletion": "onlySnippets",
+
+  // Controls whether sorting favours words that appear close to the cursor
+  "editor.suggest.localityBonus": true,
+
+  // Controls how suggestions are pre-selected when showing the suggest list
+  "editor.suggestSelection": "first",
+
+  // Enable word based suggestions
+  "editor.wordBasedSuggestions": "matchingDocuments",
+
+  // Enable parameter hints
+  "editor.parameterHints.enabled": true,
+  // ========================================================
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.formatOnSave": true
+  },
+  "editor.formatOnSave": true,
+  "tabnine.experimentalAutoImports": true,
+  "files.autoSave": "afterDelay",
+  "python.createEnvironment.trigger": "off",
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "mql_tools.Metaeditor.Metaeditor5Dir": "C:\\Program Files\\MetaTrader 5\\MetaEditor64.exe",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "redhat.telemetry.enabled": true,
+  "editor.fontFamily": "Hack Nerd Font Mono",
+  "sonarlint.focusOnNewCode": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "git.enableSmartCommit": true,
+  "explorer.confirmPasteNative": false,
+  "terminal.integrated.enableMultiLinePasteWarning": "always",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "trivy.secretScanning": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "C_Cpp.default.compilerPath": "",
+  "FSharp.suggestGitignore": false,
+  "debug.onTaskErrors": "debugAnyway",
+  "cmake.options.statusBarVisibility": "visible",
+  "diffEditor.maxComputationTime": 0
+}

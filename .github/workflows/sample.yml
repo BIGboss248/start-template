@@ -1,0 +1,12 @@
+# in .github/workflows you can configure github actions to run
+
+
+
+# name of the job
+name:
+
+# When to do
+on:
+
+# what to do
+jobs:
