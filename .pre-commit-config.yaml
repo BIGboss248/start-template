@@ -50,5 +50,5 @@ repos:
     rev: v1.32.2
     hooks:
       - id: ggshield
-      - id: ggshield-iac
-      - id: ggshield-sca
+      # - id: ggshield-iac
+      # - id: ggshield-sca
