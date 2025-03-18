@@ -11,7 +11,7 @@
 # use something like pre-commit run --from-ref origin/HEAD --to-ref HEAD
 repos:
   - repo: https://github.com/oxsecurity/megalinter
-    rev: v8.1.0 # Git tag specifying the hook, not mega-linter-runner, version
+    rev: v8.4.2 # Git tag specifying the hook, not mega-linter-runner, version
     hooks:
       - id: megalinter-full # Slower, more thorough
         stages:
@@ -41,13 +41,13 @@ repos:
 
   # Python security
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.10
+    rev: 1.8.3
     hooks:
       - id: bandit
 
   # Git security
   - repo: https://github.com/gitguardian/gg-shield
-    rev: v1.32.2
+    rev: v1.37.0
     hooks:
       - id: ggshield
       # - id: ggshield-iac
