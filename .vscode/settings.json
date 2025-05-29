@@ -9,6 +9,7 @@
   ".mega-linter.yml": true,
   ".pre-commit-config.yaml": true,
   "kics.config": true,
-}
+  "megalinter-reports": true,
+  }
 
 }
