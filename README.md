@@ -12,3 +12,9 @@ You can create a project layout by running **create project layout** task in vs 
 ## Mermaid
 
 You can add memaid to README.MD by installing bierner.markdown-mermaid extention
+
+## AI
+
+### instructions
+
+In [instructions folder](./.github/instructions/) you can specify instruction on how an AI agent should do stuff based on instructions you give to it
