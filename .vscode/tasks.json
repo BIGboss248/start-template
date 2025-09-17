@@ -12,14 +12,22 @@
           "\n",
           "mkdir docs, scripts, cmd, internal, pkg, test\n",
           "ni .env.example -ItemType File -Force\n",
-          "ni Makefile -ItemType File -Force\n"
+          "uvx --from git+https://github.com/github/spec-kit.git specify init --here --no-git\n"
         ]
       },
       "linux": {
-        "command": "mkdir -p {docs,scripts,cmd,internal,pkg,test} && touch README.md LICENSE .gitignore .env.example Makefile"
+        "command": [
+          "\n",
+          "mkdir -p {docs,scripts,cmd,internal,pkg,test} && touch .env.example Makefile\n",
+          "uvx --from git+https://github.com/github/spec-kit.git specify init --here --no-git\n"
+        ]
       },
       "osx": {
-        "command": "mkdir -p {docs,scripts,cmd,internal,pkg,test} && touch README.md LICENSE .gitignore .env.example Makefile"
+        "command": [
+          "\n",
+          "mkdir -p {docs,scripts,cmd,internal,pkg,test} && touch .env.example Makefile\n",
+          "uvx --from git+https://github.com/github/spec-kit.git specify init --here --no-git\n"
+        ]
       },
       "problemMatcher": [],
       "group": {
