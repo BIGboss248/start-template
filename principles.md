@@ -297,7 +297,7 @@ A unit is usually:
 - Sensitive info like passwords, private keys, or full credit card numbers.
 - Excessive debug logs in production (can overwhelm storage and obscure important events).
 
-#### Best Practices
+#### Logging Best Practices
 
 1. Use **structured logging** (JSON) for easier searching and analysis.
 2. Include **timestamps, severity, and context** (user ID, request ID, module).
@@ -306,12 +306,121 @@ A unit is usually:
 5. Combine logs with **monitoring & alerting** for proactive issue detection.
 
 ---
-<!-- TODO Compeleted until here -->
+
 ## 7. **Scalability & Performance**
 
-- Write code with **asynchronous/non-blocking patterns** where needed.
-- Use **caching** strategies.
-- Optimize **database queries**.
+### Write code with **asynchronous/non-blocking patterns** where needed.
+
+#### What “Asynchronous / Non-Blocking” Means
+
+- **Synchronous (blocking)**: Each operation waits for the previous one to finish.
+
+  - Example: Reading a file or fetching data blocks the program until done.
+- **Asynchronous / Non-blocking**: The program can **continue executing other tasks** while waiting for an operation to complete.
+
+**Goal:** Avoid idle waiting, improve responsiveness, and make programs more scalable.
+
+#### Why Use Asynchronous / Non-Blocking Patterns
+
+1. **Responsiveness** – e.g., a UI doesn’t freeze while loading data.
+2. **Scalability** – servers can handle many requests without creating new threads for each one.
+3. **Efficiency** – CPU can do other work while waiting for I/O or network operations.
+
+#### When to Use Asynchronous Patterns
+
+- **I/O-bound tasks:** database queries, API calls, file reads/writes.
+- **High-concurrency systems:** web servers, message queues.
+- **Background tasks:** email sending, notifications, batch processing.
+
+#### Asynchronous Best Practices
+
+1. Don’t overuse concurrency — it adds complexity and potential race conditions.
+2. Always **handle errors** in asynchronous operations.
+3. Use **timeouts or cancellation** for long-running operations.
+4. Log async tasks for debugging.
+5. Test concurrency carefully.
+
+### Use **caching** strategies.
+
+#### 🔹 What Is Caching?
+
+- **Caching** = storing the result of a computation or a data fetch **temporarily**, so future requests can be served **faster**.
+- Instead of repeatedly fetching from a database, API, or computing a value, you **reuse a stored copy**.
+
+**Goal:** Reduce latency, decrease load on resources, and improve user experience.
+
+#### 🔹 Why Use Caching?
+
+1. **Performance** ⚡
+
+   - Serve frequently requested data instantly instead of recomputing or refetching.
+
+2. **Scalability** 📈
+
+   - Reduce load on databases, APIs, or backend services.
+
+3. **Cost efficiency** 💰
+
+   - Fewer database queries or API calls reduce infrastructure costs.
+
+4. **Better User Experience** 🌟
+
+   - Fast responses improve responsiveness, especially for high-traffic systems.
+
+#### 🔹 Common Caching Strategies
+
+##### 1. **In-Memory Cache**
+
+- Stores data in the application’s memory.
+- Fastest type of cache.
+- Example in Go:
+
+```go
+var cache = make(map[string]string)
+
+func getUserName(userID string) string {
+    if name, ok := cache[userID]; ok {
+        return name // return cached value
+    }
+    name := fetchFromDB(userID)
+    cache[userID] = name // store in cache
+    return name
+}
+```
+
+##### 2. **Distributed Cache**
+
+- Shared cache across multiple servers (e.g., Redis, Memcached).
+- Used when multiple instances of an application need to share cached data.
+
+##### 3. **Cache Invalidation**
+
+- Cached data can become stale. Strategies to handle this:
+
+  1. **Time-based expiration (TTL)** – cache expires after a set time.
+  2. **Event-based invalidation** – cache updates when the underlying data changes.
+  3. **Manual eviction** – explicitly remove outdated cache.
+
+##### 4. **Cache Granularity**
+
+- **Full-page caching** – entire webpage stored in cache.
+- **Fragment caching** – only parts of the page or data are cached.
+- **Object caching** – individual database objects or API responses cached.
+
+## 🔹 Best Practices
+
+1. Cache only **frequently accessed or expensive-to-compute data**.
+2. Always consider **cache consistency** — ensure data isn’t stale.
+3. Use a **fallback** if cache misses occur.
+4. Monitor **cache hit/miss ratio** to optimize performance.
+5. Secure sensitive cached data, especially in shared caches.
+
+<!-- TODO Compeleted until here -->
+### Optimize **database queries**
+
+
+
+
 - Avoid premature optimization — measure first, then optimize.
 - Design APIs to handle growth (pagination, rate limiting).
 
