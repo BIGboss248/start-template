@@ -18,3 +18,7 @@ You can add memaid to README.MD by installing bierner.markdown-mermaid extention
 ### instructions
 
 In [instructions folder](./.github/instructions/) you can specify instruction on how an AI agent should do stuff based on instructions you give to it
+
+## .gitignore
+
+To use .gitignore templates just visit [github .gitignore repository](https://github.com/github/gitignore) and paste it in the .gitignore file
