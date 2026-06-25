@@ -5,26 +5,22 @@ description: Rules for agent task planning (Chain of Thought), git branch manage
 
 # Workflow & Task Management (MANDATORY)
 
-> [!IMPORTANT]
-> This entire rule file is **MANDATORY** and must be strictly followed for all tasks.
-
 ## Pre-Flight Planning (The "Chain of Thought" Rule)
 
 * Before writing any code or executing terminal commands for a new feature, you MUST output a numbered list detailing the exact steps you plan to take.
-* **Component Reuse & Codebase Inventory Check (MANDATORY):** As part of the pre-flight planning for any task involving visual layout, pages, or component modifications, you **MUST** search the codebase to identify existing components or utilities that can be reused or adapted. In your proposed plan, list all matching/similar existing components you found and explicitly justify why they cannot be reused/extended before proposing any new component creation.
 * Wait for the user to approve the plan before proceeding to Step 1.
 * Execute ONE logical step at a time to maintain context.
 
 ## Task Segmentation
 
 * Break down every feature implementation into smaller, atomic tasks. Execute them one by one.
-* All Git operations (branching, staging, committing, and pushing) are left entirely to the user. Do not execute Git commit or stage commands yourself, nor should you block progress waiting for commits between tasks. Simply present the completed work and let the user handle commits.
+* Following Git operations (staging, committing, and pushing) are left entirely to the user. Do not execute Git commit or stage commands yourself, nor should you block progress waiting for commits between tasks. Simply present the completed work and let the user handle commits.
 
 ## Git Branching & Commits
 
-When adding a new feature:
+On tasks:
 
-1. Recommend or note the target branch naming convention if the user asks, but do not perform branching operations yourself:
+1. git branch accordingly:
    * `feat/short-description` (for new features)
    * `fix/short-description` (for bug fixes)
    * `refactor/short-description` (for structural changes)
@@ -38,7 +34,7 @@ When adding a new feature:
 
 ## Versioning & Cleanup
 
-* On every confirmed change or completed feature, modify the version number in `package.json` accordingly (e.g., utilizing `bun version patch`, `bun version minor`, `bun version major` where appropriate) and let the user include this modification in their commit.
+* On every confirmed change or completed feature, modify the version number in `package.json` accordingly (e.g., utilizing [package manager versioning](../../AGENTS.md#project-context--metadata) where appropriate) and let the user include this modification in their commit.
 * **TODO Flags:** Any placeholder data, mock API responses, or debug `console.log`s left in the codebase must be explicitly marked with a `// TODO: REMOVE BEFORE PRODUCTION` comment.
 
 ## Privacy Policy & Terms of Service
