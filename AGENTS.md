@@ -30,6 +30,7 @@
       7. Global website metadata.
 * **Style file dir**: `[e.g., @/globals.css]`
 * **Animation library**: `[e.g., GSAP]`
+* **Utility dir**: `[e.g., src/utilites]`
 
 ### Workspace Documentation References
 
