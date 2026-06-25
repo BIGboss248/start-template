@@ -9,52 +9,39 @@ description: Rules for agent task planning (Chain of Thought), git branch manage
 > This entire rule file is **MANDATORY** and must be strictly followed for all tasks.
 
 ## Pre-Flight Planning (The "Chain of Thought" Rule)
+
 * Before writing any code or executing terminal commands for a new feature, you MUST output a numbered list detailing the exact steps you plan to take.
 * **Component Reuse & Codebase Inventory Check (MANDATORY):** As part of the pre-flight planning for any task involving visual layout, pages, or component modifications, you **MUST** search the codebase to identify existing components or utilities that can be reused or adapted. In your proposed plan, list all matching/similar existing components you found and explicitly justify why they cannot be reused/extended before proposing any new component creation.
 * Wait for the user to approve the plan before proceeding to Step 1.
 * Execute ONE logical step at a time to maintain context.
 
-<!-- AI SYNC NOTICE: Keep the following Skill Routing and Skill Loading sections in sync with AGENTS.md on any change -->
-### Skill Routing & Loading
-
-**CRITICAL: SKILL ROUTING**
-
-Before you begin planning or executing a task, you MUST evaluate the user's request. If the request involves any of the following domains, use your file system access to read the corresponding skill file in the `.agents/skills/` directory BEFORE writing code:
-
-1. **Animations & Transitions**: Read `.agents/skills/gsap-**.md` if dosen't exist install with `bunx skills add https://github.com/greensock/gsap-skills`
-2. **UI Components & Styling**: Read `.agents/skills/shadcn/**` if dosen't exist install with `bunx --bun skills add shadcn/ui`
-
-#### Skill Loading
-
-Before substantial work:
-- Skill check: run `bunx @tanstack/intent@latest list`, or use skills already listed in context.
-- Skill guidance: if one local skill clearly matches the task, run `bunx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.
-- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
-- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
-- Ensure TanStack Intent is used to load version-accurate skills for installed packages: `bunx @tanstack/intent@latest install`.
-<!-- END AI SYNC NOTICE -->
-
 ## Task Segmentation
+
 * Break down every feature implementation into smaller, atomic tasks. Execute them one by one.
 * All Git operations (branching, staging, committing, and pushing) are left entirely to the user. Do not execute Git commit or stage commands yourself, nor should you block progress waiting for commits between tasks. Simply present the completed work and let the user handle commits.
 
 ## Git Branching & Commits
+
 When adding a new feature:
+
 1. Recommend or note the target branch naming convention if the user asks, but do not perform branching operations yourself:
-   - `feat/short-description` (for new features)
-   - `fix/short-description` (for bug fixes)
-   - `refactor/short-description` (for structural changes)
+   * `feat/short-description` (for new features)
+   * `fix/short-description` (for bug fixes)
+   * `refactor/short-description` (for structural changes)
 2. Implement the feature code, but **do not stage or commit**.
 3. Leave all git staging and committing entirely to the user. You may suggest appropriate conventional commit messages for their reference at the end of a task (e.g., `git commit -m "feat: add localization to header navigation"`), but do not execute them, ask to run them, or wait/block progress for them.
 
 ## Verification Gate
+
 * Do NOT run verification commands (e.g. `bun run build`, `bun run lint`, or testing suites) during standard tasks/workflows (creating pages, utilities, components, etc.) because these checks are handled automatically by `pre-commit` hooks.
 * If manual verification, project-wide testing, or build-fixing is explicitly requested by the user, follow the `/verify-build` workflow.
 
 ## Versioning & Cleanup
+
 * On every confirmed change or completed feature, modify the version number in `package.json` accordingly (e.g., utilizing `bun version patch`, `bun version minor`, `bun version major` where appropriate) and let the user include this modification in their commit.
 * **TODO Flags:** Any placeholder data, mock API responses, or debug `console.log`s left in the codebase must be explicitly marked with a `// TODO: REMOVE BEFORE PRODUCTION` comment.
 
 ## Privacy Policy & Terms of Service
+
 * Any change to the codebase involving telemetry, cookies, or user data collection requires an update to the Privacy Policy and Terms of Service.
 * Implement a non-intrusive consent banner for users to accept these terms if a new data-collection feature is added.
