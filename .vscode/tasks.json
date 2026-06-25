@@ -1,42 +1,57 @@
-// Here you can define tasks which are snippets for teminal
-// you can define compile and run tasks or any other repeatable
-// terminal task to be run with a click
-// use intellisense to figureout configurations
 {
+  "version": "2.0.0",
   "tasks": [
     {
-      "label": "Create Project Layout",
+      "label": "Setup Husky & Commitlint",
       "type": "shell",
       "windows": {
-        "command": [
-          "\n",
-          "mkdir docs, scripts, cmd, internal, pkg, test\n",
-          "ni .env.example -ItemType File -Force\n",
-          "uvx --from git+https://github.com/github/spec-kit.git specify init --here --no-git\n"
-        ]
+        "command": "npm install --save-dev husky @commitlint/config-conventional @commitlint/cli; npx husky init; Set-Content -Path .husky/commit-msg -Value 'npx --no -- commitlint --edit $1'; Set-Content -Path .commitlintrc.json -Value '{\n  \"extends\": [\"@commitlint/config-conventional\"]\n}'"
       },
       "linux": {
-        "command": [
-          "\n",
-          "mkdir -p {docs,scripts,cmd,internal,pkg,test} && touch .env.example Makefile\n",
-          "uvx --from git+https://github.com/github/spec-kit.git specify init --here --no-git\n"
-        ]
+        "command": "npm install --save-dev husky @commitlint/config-conventional @commitlint/cli && npx husky init && echo 'npx --no -- commitlint --edit $1' > .husky/commit-msg && echo '{\n  \"extends\": [\"@commitlint/config-conventional\"]\n}' > .commitlintrc.json"
       },
       "osx": {
-        "command": [
-          "\n",
-          "mkdir -p {docs,scripts,cmd,internal,pkg,test} && touch .env.example Makefile\n",
-          "uvx --from git+https://github.com/github/spec-kit.git specify init --here --no-git\n"
-        ]
+        "command": "npm install --save-dev husky @commitlint/config-conventional @commitlint/cli && npx husky init && echo 'npx --no -- commitlint --edit $1' > .husky/commit-msg && echo '{\n  \"extends\": [\"@commitlint/config-conventional\"]\n}' > .commitlintrc.json"
       },
       "problemMatcher": [],
+      "icon": {
+        "id": "git-commit",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "Configure Semantic Release",
+      "type": "shell",
+      "windows": {
+        "command": "npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github; Set-Content -Path .releaserc.json -Value '{\n  \"branches\": [\"main\"],\n  \"plugins\": [\n    \"@semantic-release/commit-analyzer\",\n    \"@semantic-release/release-notes-generator\",\n    \"@semantic-release/changelog\",\n    \"@semantic-release/github\",\n    [\"@semantic-release/git\", {\n      \"assets\": [\"package.json\", \"CHANGELOG.md\"],\n      \"message\": \"chore(release): ${nextRelease.version} [skip ci]\"\n    }]\n  ]\n}'"
+      },
+      "linux": {
+        "command": "npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github && echo '{\n  \"branches\": [\"main\"],\n  \"plugins\": [\n    \"@semantic-release/commit-analyzer\",\n    \"@semantic-release/release-notes-generator\",\n    \"@semantic-release/changelog\",\n    \"@semantic-release/github\",\n    [\"@semantic-release/git\", {\n      \"assets\": [\"package.json\", \"CHANGELOG.md\"],\n      \"message\": \"chore(release): \\${nextRelease.version} [skip ci]\"\n    }]\n  ]\n}' > .releaserc.json"
+      },
+      "osx": {
+        "command": "npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github && echo '{\n  \"branches\": [\"main\"],\n  \"plugins\": [\n    \"@semantic-release/commit-analyzer\",\n    \"@semantic-release/release-notes-generator\",\n    \"@semantic-release/changelog\",\n    \"@semantic-release/github\",\n    [\"@semantic-release/git\", {\n      \"assets\": [\"package.json\", \"CHANGELOG.md\"],\n      \"message\": \"chore(release): \\${nextRelease.version} [skip ci]\"\n    }]\n  ]\n}' > .releaserc.json"
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "tag",
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "Initialize Full Environment (All-in-One)",
+      "dependsOn": [
+        "Create Project Layout",
+        "Setup Husky & Commitlint",
+        "Configure Semantic Release"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
       "group": {
-        "kind": "build",
-        "isDefault": true
+        "kind": "build"
       },
       "icon": {
-        "id": "root-folder-opened",
-        "color": "terminal.ansiGreen"
+        "id": "rocket",
+        "color": "terminal.ansiCyan"
       }
     }
   ]
