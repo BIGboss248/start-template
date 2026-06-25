@@ -1,6 +1,6 @@
 # Agent Directives & Context Routing
 
-# Project Context & Metadata
+## Project Context & Metadata
 
 *This dashboard serves as the single source of truth for the AI agent regarding the active project's architecture, dependencies, and business rules.*
 
@@ -13,6 +13,21 @@
 * **Primary Styling Tool**: `[e.g., Tailwind CSS / Vanilla CSS]`
 * **Hosting & Infrastructure**: `[e.g., Docker Container deployed to VPS via Caprover]`
 * **CI/CD Pipelines**: `[e.g., GitHub Actions (ci.yml for pull requests, cd.yml for Semantic Release and Docker builds)]`
+* **new component dir**: `[e.g., ./components/custom components]`
+* **component library**: `[e.g., Shadcn]`
+* **Client data file**: `[e.g.,@/constants/clientInfo.ts]`
+      includes
+      1. Social media links, phone numbers, and addresses.
+      2. Business details and contact info.
+* **project info file**: `[e.g.,@/constants/projectInfo.ts]`
+      Read from `docs/sitemap-architecture.md` includes
+     1. Page Name: `[e.g., Home, Blog Post]`
+      2. Route Path: `[e.g., / or /blog/[slug]]`
+      3. Page metadata and Schema.org attributes.
+      4. Access Level / Auth Requirement
+      5. Redirects & Rewrites
+      6. Dynamic Route Parameters
+      7. Global website metadata.
 
 ### Workspace Documentation References
 
