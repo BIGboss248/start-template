@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Guidelines for creating new react components mandatory when deciding to craete new react components or new web pages
+description: Guidelines for creating new react components mandatory when deciding to craete new react components, new web pages or layouts
 ---
 
 # new react component rules
@@ -31,3 +31,33 @@ description: Guidelines for creating new react components mandatory when decidin
 ## Component caching
 
 * **Rendering Strategy:** The preferred rendering strategy is Incremental Static Regeneration (ISR). Refer to the [Next.js ISR guide](node_modules/next/dist/docs/02-pages/02-guides/incremental-static-regeneration.md) if the [project framewrok](@/AGENTS.md#project-context--metadata). **Never cache content if it introduces a security risk.** Do not cache user-specific data or routes containing sensitive transactional information.
+
+## Component styling
+
+* **centeral design**: The project uses [Style file](@/AGENTS.md#project-context--metadata) CSS variable and tailwind token system. Do NOT use hardcoded Tailwind color scales (e.g., `bg-blue-500`) unless explicitly requested. Strictly use semantic theme tokens (e.g., `bg-background`, `text-muted-foreground`, `border-border`) to ensure perfect compatibility across Light and Dark modes. Chosen colors must pass accessibility contrast ratios in both modes.
+* **Strict Class Merging:** NEVER concatenate Tailwind classes using standard template literals. Always use the `cn()` utility function (which wraps `clsx` and `tailwind-merge`) to resolve styling conflicts, especially when exposing `className` props in reusable components.
+* **RTL & Logical Properties:** You **must** use Tailwind's logical classes that respect direction (e.g., use `ms` instead of `ml`, `pe` instead of `pr`). The usage of physical directional classes (like `ml`, `pr`, `left`, `right`) is FORBIDDEN to ensure the layout mirrors correctly when switching directions.
+
+## Animations
+
+* **Animation Hierarchy:**
+  * **Micro-interactions:** Use standard Tailwind CSS transitions (e.g., `transition-all hover:scale-105`) for simple hover states, focus rings, or basic toggles.
+  * **Complex Animations:** Use [Animation library](@/AGENTS.md#project-context--metadata) only for complex sequence timelines or scroll-triggered animations.
+* **Constraint:** Animations must never negatively impact Core Web Vitals or SEO.
+
+## Responsive Design
+
+* Pages, layouts and components must be perfectly responsive across mobile, tablet, and desktop. If necessary, develop three distinct internal layout versions for complex pages to ensure responsiveness.
+
+## Loading states
+
+* Create loading skeletons for all new pages and data-heavy components. Wrap them in React `<Suspense>` boundaries to improve perceived performance while loading.
+* Do not block the entire page from rendering while data fetches; wrap individual slow components in React `<Suspense>` and provide accurate `<Skeleton>` fallbacks matching the exact dimensions of loaded content to prevent Cumulative Layout Shift (CLS).
+
+## NextJS specific
+
+If [framework](@/AGENTS.md#project-context--metadata) is NextJS use their own optimized components to create new components or pages (e.g, use `Image`, `Link`)
+
+## Commenting
+
+Each page or component section must have a comment above their code

@@ -28,6 +28,8 @@
       5. Redirects & Rewrites
       6. Dynamic Route Parameters
       7. Global website metadata.
+* **Style file dir**: `[e.g., @/globals.css]`
+* **Animation library**: `[e.g., GSAP]`
 
 ### Workspace Documentation References
 

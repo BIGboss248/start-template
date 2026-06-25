@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Instructions for SEO optimization, schema-dts structured data, semantic HTML, sitemaps, and indexing restrictions.
+description: Instructions for SEO optimization, schema-dts structured data, semantic HTML, sitemaps, and indexing restrictions. Mandatory when craeting new web page or editing one
 ---
 
 # SEO & Semantic HTML
