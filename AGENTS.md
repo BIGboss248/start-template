@@ -66,17 +66,15 @@ To reduce context pollution and ensure the agent only loads rules relevant to th
 
 1. **Core Stack Standards** ([core-stack.md](.agents/rules/core-stack.md)):
    Contains guidelines for Next.js rendering strategies, Payload CMS integration, Bun package manager execution, and end-to-end TypeScript safety.
-2. **Architecture & File Structure** ([architecture.md](.agents/rules/architecture.md)) [MANDATORY when creating a new page or component]:
-   Defines global navigation structures, component import/placement rules, and React Server Components (RSC) vs. Client Component choices.
-3. **UI, Styling & Animations** ([ui-styling.md](.agents/rules/ui-styling.md)) [Loading States section is MANDATORY when creating a new page or component]:
-   Sets standard tailwind properties, class name merging (`cn()`), RTL physical vs. logical styles, loading skeletons, GSAP configuration, and asset optimization.
-4. **Search Engine Optimization** ([seo.md](.agents/rules/seo.md)):
+2. **New React Components** ([new-react-components.md](.agents/rules/new-react-components.md)) [MANDATORY when creating new react components, new web pages or layouts]:
+   Guidelines for creating new react components, RSC vs Client boundary strategies, and styling standards.
+3. **Search Engine Optimization** ([seo.md](.agents/rules/seo.md)):
    Covers semantic HTML, dynamic sitemap updates, JSON-LD structured data (schema-dts), and robots indexation control.
-5. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
+4. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
    Covers Edge-level Persian (i18n) middleware routing, bidirectional (RTL) HTML structures, localized link formatting utils, and Intl localization formatters.
-6. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
+5. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
    Outlines the Chain of Thought planning format, branch/commit naming conventions, type/lint checks, semantic versioning, and compliance policies.
-7. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
+6. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
    Specifies TSDoc parameters, automated unit testing guidelines (Jest/Vitest/Bun), Mermaid syntax, and localized README layouts.
 
 *Trigger conditional rules individually using the `model_decision` loader based on the topic of the current prompt.*
