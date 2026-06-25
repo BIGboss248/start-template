@@ -5,13 +5,13 @@
       "label": "Setup Husky & Commitlint",
       "type": "shell",
       "windows": {
-        "command": "bun install --save-dev husky @commitlint/config-conventional @commitlint/cli; bunx husky init; Remove-Item -Path .husky/pre-commit -Force -ErrorAction SilentlyContinue; Set-Content -Path .husky/commit-msg -Value 'bunx --no -- commitlint --edit $1'; Set-Content -Path .husky/pre-push -Value 'bun run test:int && bun run build'; Set-Content -Path .commitlintrc.json -Value '{\n  \"extends\": [\"@commitlint/config-conventional\"]\n}'"
+        "command": "bun install --save-dev husky @commitlint/config-conventional @commitlint/cli; bunx husky init; Remove-Item -Path .husky/pre-commit -Force -ErrorAction SilentlyContinue; Set-Content -Path .husky/commit-msg -Value 'bunx --no -- commitlint --edit $1'; Set-Content -Path .husky/pre-push -Value 'bun run test:int && bun run build'; @{extends = @('@commitlint/config-conventional')} | ConvertTo-Json | Set-Content -Path .commitlintrc.json"
       },
       "linux": {
-        "command": "bun install --save-dev husky @commitlint/config-conventional @commitlint/cli && bunx husky init && rm -f .husky/pre-commit && echo 'bunx --no -- commitlint --edit $1' > .husky/commit-msg && echo 'bun run test:int && bun run build' > .husky/pre-push && echo '{\n  \"extends\": [\"@commitlint/config-conventional\"]\n}' > .commitlintrc.json"
+        "command": "bun install --save-dev husky @commitlint/config-conventional @commitlint/cli && bunx husky init && rm -f .husky/pre-commit && echo 'bunx --no -- commitlint --edit $1' > .husky/commit-msg && echo 'bun run test:int && bun run build' > .husky/pre-push && echo '{\"extends\": [\"@commitlint/config-conventional\"]}' > .commitlintrc.json"
       },
       "osx": {
-        "command": "bun install --save-dev husky @commitlint/config-conventional @commitlint/cli && bunx husky init && rm -f .husky/pre-commit && echo 'bunx --no -- commitlint --edit $1' > .husky/commit-msg && echo 'bun run test:int && bun run build' > .husky/pre-push && echo '{\n  \"extends\": [\"@commitlint/config-conventional\"]\n}' > .commitlintrc.json"
+        "command": "bun install --save-dev husky @commitlint/config-conventional @commitlint/cli && bunx husky init && rm -f .husky/pre-commit && echo 'bunx --no -- commitlint --edit $1' > .husky/commit-msg && echo 'bun run test:int && bun run build' > .husky/pre-push && echo '{\"extends\": [\"@commitlint/config-conventional\"]}' > .commitlintrc.json"
       },
       "problemMatcher": [],
       "icon": {
