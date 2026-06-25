@@ -21,9 +21,6 @@
 * **Sitemap & Caching Spec**: [docs/sitemap-architecture.md](file:///docs/sitemap-architecture.md) *(Route maps and delivery profiles from Phase 2)*
 
 ---
-
-
-<!-- AI SYNC NOTICE: Keep the following Skill Routing and Skill Loading sections in sync with the Pre-Flight phases of .agents/workflows/*.md and .agents/rules/workflow.md on any change -->
 **CRITICAL: SKILL ROUTING**
 
 Before you begin planning or executing a task, you MUST evaluate the user's request. If the request involves any of the following domains, use your file system access to read the corresponding skill file in the `.agents/skills/` directory BEFORE writing code:
@@ -34,12 +31,12 @@ Before you begin planning or executing a task, you MUST evaluate the user's requ
 ## Skill Loading
 
 Before substantial work:
-- Skill check: run `bunx @tanstack/intent@latest list`, or use skills already listed in context.
-- Skill guidance: if one local skill clearly matches the task, run `bunx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.
-- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
-- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
-- Ensure TanStack Intent is used to load version-accurate skills for installed packages: `bunx @tanstack/intent@latest install`.
-<!-- END AI SYNC NOTICE -->
+
+* Skill check: run `bunx @tanstack/intent@latest list`, or use skills already listed in context.
+* Skill guidance: if one local skill clearly matches the task, run `bunx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.
+* Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
+* Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
+* Ensure TanStack Intent is used to load version-accurate skills for installed packages: `bunx @tanstack/intent@latest install`.
 
 # Setting up enviroment
 
@@ -49,19 +46,19 @@ If `pre-commit` is not installed install it also if the skills and the listed fi
 
 To reduce context pollution and ensure the agent only loads rules relevant to the active request, the detailed project standards have been split into individual rule files located under the `.agents/rules/` directory:
 
-1. **Core Stack Standards** ([core-stack.md](file:///D:/Scripts/sampleshop/.agents/rules/core-stack.md)):
+1. **Core Stack Standards** ([core-stack.md](.agents/rules/core-stack.md)):
    Contains guidelines for Next.js rendering strategies, Payload CMS integration, Bun package manager execution, and end-to-end TypeScript safety.
-2. **Architecture & File Structure** ([architecture.md](file:///D:/Scripts/sampleshop/.agents/rules/architecture.md)) [MANDATORY when creating a new page or component]:
+2. **Architecture & File Structure** ([architecture.md](.agents/rules/architecture.md)) [MANDATORY when creating a new page or component]:
    Defines global navigation structures, component import/placement rules, and React Server Components (RSC) vs. Client Component choices.
-3. **UI, Styling & Animations** ([ui-styling.md](file:///D:/Scripts/sampleshop/.agents/rules/ui-styling.md)) [Loading States section is MANDATORY when creating a new page or component]:
+3. **UI, Styling & Animations** ([ui-styling.md](.agents/rules/ui-styling.md)) [Loading States section is MANDATORY when creating a new page or component]:
    Sets standard tailwind properties, class name merging (`cn()`), RTL physical vs. logical styles, loading skeletons, GSAP configuration, and asset optimization.
-4. **Search Engine Optimization** ([seo.md](file:///D:/Scripts/sampleshop/.agents/rules/seo.md)):
+4. **Search Engine Optimization** ([seo.md](.agents/rules/seo.md)):
    Covers semantic HTML, dynamic sitemap updates, JSON-LD structured data (schema-dts), and robots indexation control.
-5. **Language & Internationalization** ([i18n.md](file:///D:/Scripts/sampleshop/.agents/rules/i18n.md)):
+5. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
    Covers Edge-level Persian (i18n) middleware routing, bidirectional (RTL) HTML structures, localized link formatting utils, and Intl localization formatters.
-6. **Workflow & Task Management** ([workflow.md](file:///D:/Scripts/sampleshop/.agents/rules/workflow.md)) [MANDATORY for all tasks]:
+6. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
    Outlines the Chain of Thought planning format, branch/commit naming conventions, type/lint checks, semantic versioning, and compliance policies.
-7. **Code Documentation & Testing** ([documentation.md](file:///D:/Scripts/sampleshop/.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
+7. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
    Specifies TSDoc parameters, automated unit testing guidelines (Jest/Vitest/Bun), Mermaid syntax, and localized README layouts.
 
 *Trigger conditional rules individually using the `model_decision` loader based on the topic of the current prompt.*
