@@ -11,7 +11,20 @@ description: Instructions for SEO optimization, schema-dts structured data, sema
 - **Proactive Content & Section Recommendations:** Before generating code for a new page, you MUST act as an SEO advisor and propose additional semantic sections that would improve the page's ranking and topical authority (e.g., `FAQ` for long-tail queries, `Related Products` for internal linking, or `Breadcrumbs` for deep hierarchies).
 - **Heading Hierarchy:** Use a single `<h1>` per page with proper heading hierarchy (sequential `<h2>` to `<h6>`).
 - **Next.js App Router Metadata:** Every page must utilize Next.js's Metadata API (`generateMetadata` for dynamic pages or `metadata` export for static pages). Include localized `title`, `description`, and `keywords`. You MUST generate self-referencing canonical URLs for every page to prevent duplicate content penalties across localized routes. Include fully fleshed-out Open Graph (`og:title`, `og:image`, `og:type`) and Twitter Card metadata.
-- **Strictly Typed Structured Data (schema-dts):** Do not deploy a page without injecting relevant JSON-LD schema. To optimize SEO crawlability and indexation, you MUST combine as many compatible Schema.org objects as possible (e.g. `WebPage`, `Product`, `BreadcrumbList`, `Organization`) in a single JSON-LD block using the `@graph` array format. Enforce type safety by utilizing the `schema-dts` package. Never use `@ts-ignore` or `any` when defining the schema object. On each new schema insertion, mark it with a TODO comment asking the user to validate using [validator.schema.org](https://validator.schema.org/).
+- **Strictly Typed Structured Data (schema-dts):** Do not deploy a page without injecting relevant JSON-LD schema. To optimize SEO crawlability and indexation, you MUST combine as many compatible Schema.org objects as possible (e.g. `WebPage`, `Product`, `BreadcrumbList`, `Store`, `Organization`, `FAQPage`) in a single JSON-LD block using the `@graph` array format. Enforce type safety by utilizing the `schema-dts` package. Never use `@ts-ignore` when defining the schema object, and cast properties explicitly where needed to preserve strict typing. On each new schema insertion, mark it with a TODO comment asking the user to validate using [validator.schema.org](https://validator.schema.org/).
+  - **Schema Cohesion & Linking via `@id`**: Grouped entities should link to one another using `@id` references:
+    - `WebPage` ID format: `${pageUrl}#webpage`
+    - `Store`/`Organization` ID format: `${siteUrl}/#organization` or `${siteUrl}/#store`
+    - `Product` ID format: `${pageUrl}#product`
+    - `BreadcrumbList` ID format: `${pageUrl}#breadcrumb`
+    - Link `Product` to `WebPage` using `"mainEntityOfPage": { "@id": "${pageUrl}#webpage" }`.
+    - Link `WebPage` to its publisher/provider using `"publisher": { "@id": "${siteUrl}/#organization" }` or `"provider": { "@id": "${siteUrl}/#store" }`.
+  - **Standard Page Configurations**:
+    - **Home Page**: Combine `WebPage` (fa-IR, with description and canonical URL) + `Store` / `Organization` + `FAQPage` (if FAQ blocks are rendered).
+    - **Shop Catalog Page**: Combine `WebPage` + `Store` + `BreadcrumbList` (linking Home to Shop).
+    - **Product Page**: Combine `WebPage` + `Product` (featuring multi-currency Offers for IRR/USD) + `BreadcrumbList` (Home > Shop > Product).
+    - **Content Pages (About, Contact, etc.)**: Combine `WebPage` + `Organization`/`LocalBusiness` + `BreadcrumbList`.
+  - **Rich Text Parsing Rule**: Do NOT pass raw CMS structured JSON fields (like Lexical editor state trees) directly into schema text fields (e.g. `description`). They will fail Schema.org validation. Always convert them to plain text strings first using a recursive utility function (like `lexicalToPlainText`).
   - **Injection Pattern (@graph Graph):**
 
     ```tsx
@@ -27,6 +40,9 @@ description: Instructions for SEO optimization, schema-dts structured data, sema
           'name': 'About Us',
           'description': 'About our company.',
           'inLanguage': 'fa-IR',
+          'publisher': {
+            '@id': 'https://setayeshparts.com/#organization'
+          }
         },
         {
           '@type': 'Organization',
