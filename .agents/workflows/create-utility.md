@@ -47,7 +47,6 @@ Linting and testing
 
 1. **Verification Gate:** Lint the code and run tests.
 2. **Code Cleanup:** Mark temporary structures with `// TODO: REMOVE BEFORE PRODUCTION`.
-3. **Versioning:** Run versioning command of your [Package Manager](../../AGENTS.md#project-context--metadata) on completed features.
 
 ---
 

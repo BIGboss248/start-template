@@ -73,7 +73,7 @@ To reduce context pollution and ensure the agent only loads rules relevant to th
 4. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
    Covers Edge-level Persian (i18n) middleware routing, bidirectional (RTL) HTML structures, localized link formatting utils, and Intl localization formatters.
 5. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
-   Outlines the Chain of Thought planning format, branch/commit naming conventions, type/lint checks, semantic versioning, and compliance policies.
+   Outlines the Chain of Thought planning format, branch/commit naming conventions, type/lint checks, and compliance policies.
 6. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
    Specifies TSDoc parameters, automated unit testing guidelines (Jest/Vitest/Bun), Mermaid syntax, and localized README layouts.
 

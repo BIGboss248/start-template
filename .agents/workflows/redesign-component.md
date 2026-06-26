@@ -49,7 +49,6 @@ Before modifying any styling or markup:
 
 1. **Verification Gate:** Do NOT manually run checks. Rely on `pre-commit` hooks, or use the `/verify-build` workflow if manual verification is requested.
 2. **Code Cleanup:** Remove any temporary test styling or console logs (`// TODO: REMOVE BEFORE PRODUCTION`).
-3. **Versioning:** Update `package.json` version using `bun version patch`.
 
 ---
 

@@ -85,7 +85,7 @@ Show the plan in this form:
 
 1. **Verification Gate:** Do NOT manually run checks. Rely on `pre-commit` hooks, or use the `/verify-build` workflow if manual verification is requested.
 2. **Code Cleanup:** Remove or mark temporary mocks (`// TODO: REMOVE BEFORE PRODUCTION`).
-3. **Versioning & Privacy:** Update `package.json` version using `bun version patch`. Ensure GDPR/Privacy compliance if collecting telemetry.
+3. **Privacy:** Ensure GDPR/Privacy compliance if collecting telemetry.
 
 ---
 

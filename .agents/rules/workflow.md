@@ -1,6 +1,6 @@
 ---
 trigger: always
-description: Rules for agent task planning (Chain of Thought), git branch management, commit naming conventions, pre-commit verification checks, semantic versioning, and privacy consent. MANDATORY for all tasks.
+description: Rules for agent task planning (Chain of Thought), git branch management, commit naming conventions, pre-commit verification checks, and privacy consent. MANDATORY for all tasks.
 ---
 
 # Workflow & Task Management (MANDATORY)
@@ -32,9 +32,8 @@ On tasks:
 * Do NOT run verification commands (e.g. `bun run build`, `bun run lint`, or testing suites) during standard tasks/workflows (creating pages, utilities, components, etc.) because these checks are handled automatically by `pre-commit` hooks.
 * If manual verification, project-wide testing, or build-fixing is explicitly requested by the user, follow the `/verify-build` workflow.
 
-## Versioning & Cleanup
+## Cleanup
 
-* On every confirmed change or completed feature, modify the version number in `package.json` accordingly (e.g., utilizing [package manager versioning](../../AGENTS.md#project-context--metadata) where appropriate) and let the user include this modification in their commit.
 * **TODO Flags:** Any placeholder data, mock API responses, or debug `console.log`s left in the codebase must be explicitly marked with a `// TODO: REMOVE BEFORE PRODUCTION` comment.
 
 ## Privacy Policy & Terms of Service
