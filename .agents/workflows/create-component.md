@@ -51,10 +51,10 @@ Show the plan in this form:
 
 ## Phase 2: Create the component
 
-1. **Directory Placement:** Create the component file in the [new component dir](@/AGENTS.md#project-context--metadata) and categorize them by the page that the component is used in (e.g., [new component dir](@/AGENTS.md#project-context--metadata)).
+1. **Directory Placement:** Create component folder in the [new component dir](@/AGENTS.md#project-context--metadata) and categorize them by the page that the component is used in (e.g., [new component dir](@/AGENTS.md#project-context--metadata)).
 2. **Code:**
 
-- Create the component using semantic HTML, Exclusively use [Style file dir](@/AGENTS.md#project-context--metadata)
+- Create the component using semantic HTML, Exclusively use [Style file dir](@/AGENTS.md#project-context--metadata), Create seprate versions of the component for mobile and tablet saving them as [ComponentName]Tablet  and [ComponentName]Mobile and configuring so each one is rendered on the related screen
 - variables adn tailwind tokens, use Tailwind logical properties.
 - Merge classes with `cn(...)` (`rules/ui-styling.md`).
 - Use [Animation library](../../AGENTS.md#project-context--metadata) for animations.
@@ -67,7 +67,7 @@ Show the plan in this form:
 
 ## Phase 3: Implementation & Styling (UI, UX, and i18n)
 
-1. **Loading States (MANDATORY):** Create skeleton components matching content dimensions and `<Suspense>` boundaries. And store it as `[component name]-skeleton`
+1. **Loading States (MANDATORY):** Create skeleton components matching content dimensions and `<Suspense>` boundaries. And store it as `[component name]Skeleton` (`[component name]TabletSkeleton`, `[component name]MobileSkeleton` for tablet and mobile)
 2. **i18n & Formatting:** Create dictionary files of [Supported Languages](../../AGENTS.md#project-context--metadata) and replace the text in components (if website has one language there is no need). Use `Intl` API for formatting (`rules/i18n.md`).
 3. **SEO:** Implement SEO for all [Supported Languages](../../AGENTS.md#project-context--metadata) per [seo.md](../rules/seo.md)
 
