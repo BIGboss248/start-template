@@ -1,5 +1,5 @@
 ---
-trigger: always
+trigger: always_on
 description: Rules for agent task planning (Chain of Thought), git branch management, commit naming conventions, pre-commit verification checks, and privacy consent. MANDATORY for all tasks.
 ---
 

@@ -24,6 +24,7 @@ Before writing any code:
 2. **Component Inventory Check (MANDATORY):** Search `components_dir` for an existing component to reuse/extend before proposing a new one. Update consumers if changing an existing API.
 3. **`component_libray` Check (MANDATORY):** Prefer `component_libray` components over custom building.
 4. **SEO Advisor Check:** Use semantic elements if the component has SEO impact.
+5. **Skill loading**: Based on user requests load relvevant skills
 
 Show the plan in this form:
 
