@@ -26,7 +26,7 @@ https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
 
 ```
 npm install -g ui-ux-pro-max-cli
-uipro init --ai all
+uipro init help
 ```
 
 ## .gitignore
