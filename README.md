@@ -19,6 +19,16 @@ You can add memaid to README.MD by installing bierner.markdown-mermaid extention
 
 In [instructions folder](./.github/instructions/) you can specify instruction on how an AI agent should do stuff based on instructions you give to it
 
+### UI UX pro
+
+A skill package to guide AI to create user interfaces in different frameworks including NextJS and flutter this skill is installed and updated via CLI
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+
+```
+npm install -g ui-ux-pro-max-cli
+uipro init --ai all
+```
+
 ## .gitignore
 
 To use .gitignore templates just visit [github .gitignore repository](https://github.com/github/gitignore) and paste it in the .gitignore file
