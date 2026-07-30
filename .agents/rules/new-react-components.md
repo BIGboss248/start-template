@@ -51,8 +51,20 @@ description: Guidelines for creating new react components mandatory when decidin
 
 ## Loading states
 
-* Create loading skeletons for all new pages and data-heavy components. Wrap them in React `<Suspense>` boundaries to improve perceived performance while loading.
-* Do not block the entire page from rendering while data fetches; wrap individual slow components in React `<Suspense>` and provide accurate `<Skeleton>` fallbacks matching the exact dimensions of loaded content to prevent Cumulative Layout Shift (CLS).
+* **Local Skeleton Fallbacks & Suspense Boundaries:**
+  * Do not block entire page rendering while data fetches. Wrap individual slow components or page segments in React `<Suspense>` boundaries.
+  * Provide accurate `<Skeleton>` fallbacks matching the exact layout dimensions of loaded content to prevent Cumulative Layout Shift (CLS). When building multi-layout responsive components, create matching skeleton variants (e.g. `[Component]Skeleton`, `[Component]TabletSkeleton`, `[Component]MobileSkeleton`).
+* **Global Route Navigation Progress:**
+  * When creating pages, navigation menus, or custom links in Next.js App Router, ensure route transition progress is implemented using `@vercel/react-transition-progress` (`<ProgressBarProvider>` and progress-aware `<Link>` or `useProgress()`).
+  * Ensure immediate visual acknowledgment (<100ms) upon click/tap when users navigate slow networks or stream Server Components, preventing perceived frozen states and repeated clicks.
+* **Interactive Component Pending States:**
+  * Track pending transition states (`isPending` from `useProgress()` or React `useTransition`) on interactive components (buttons, links, form triggers).
+  * Render inline loading indicators/spinners and temporarily disable interactive elements during active transitions to prevent double-submits and duplicate clicks.
+* **UI/UX & Accessibility Loading Rules:**
+  * **Strict Visual Hierarchy:** Maintain clear separation between **Global Route Progress** (top fixed progress bar) and **Local Layout Structure** (content skeletons/spinners).
+  * **Top Bar Styling:** Render progress bars fixed at the top (`fixed top-0 left-0 right-0 z-[9999] h-1 pointer-events-none`) styled with primary theme tokens (`bg-primary`), smooth width transitions (`transition-all duration-200 ease-out`), subtle glow/shadow (`shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]`), and graceful opacity fade-outs.
+  * **Micro-Flicker Prevention:** Apply a ~100ms delay threshold before rendering progress indicators on fast sub-100ms navigations to avoid jarring flashes.
+  * **Accessibility (a11y):** Must include ARIA attributes (`role="progressbar"`, `aria-busy={isPending}`, `aria-valuemin={0}`, `aria-valuemax={100}`, dynamic `aria-valuenow`) and respect `@media (prefers-reduced-motion: reduce)` by disabling sliding animations in favor of opacity fades.
 
 ## NextJS specific
 
