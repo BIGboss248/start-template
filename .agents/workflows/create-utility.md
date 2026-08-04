@@ -4,19 +4,17 @@ description: Steps and rules to follow when creating utility functions including
 
 # Workflow: Create Utility
 
-## Phase 1: Pre-Flight & Planning
+## Phase 1: Pre-Flight Planning & Source Audit
 
 Before writing any code:
 
-1. **Chain of Thought Planning:** Define the input types, output types, processing steps, and edge cases.
-2. **Avoid Duplication:** Scan the existing utilities under [Utility dir](@/AGENTS.md#project-context--metadata) to see if a similar function exists.
+1. **JSON Pre-Flight Plan:** Output the JSON plan schema as required by `rules/workflow.md`. Audit relevant sources (`AGENTS.md`, `rules/core-stack.md`, `rules/documentation.md`).
+2. **Avoid Duplication:** Scan existing utilities under [Utility dir](@/AGENTS.md#project-context--metadata) to see if a similar function exists.
 3. **Purity Design:** Design the utility to be a pure function (deterministic, free of side-effects) whenever possible, facilitating testing and cacheability.
 
 ---
 
 ## Phase 2: Architectural Placement & Types
-
-Write the code
 
 1. **Directory Placement:** Store global utilities under [Utility dir](@/AGENTS.md#project-context--metadata). Store module-specific utilities within the immediate folder.
 2. **Type Safety:** Write fully typed TypeScript functions avoiding `any` or `@ts-ignore` as dictated by `rules/core-stack.md`. Ensure E2E type safety with Payload CMS types if applicable.
@@ -26,24 +24,31 @@ Write the code
 
 ## Phase 3: Documentation (MANDATORY)
 
-Document the code
-
-1. **TSDoc Standard (MANDATORY):** Document the utility using strict English TSDoc syntax (`rules/documentation.md`). Focus on the "Why", generics, inputs, and exceptions.
+1. **TSDoc Standard (MANDATORY):** Document the utility using strict English TSDoc syntax (`rules/documentation.md`). Focus on the "Why", generics (`@typeParam`), inputs (`@param`), default values (`@defaultValue`), return values (`@returns`), and exceptions (`@throws`).
 2. **Algorithmic Documentation:** Update `README.modules.md` and `ARCHITECTURE.md` as necessary (`rules/documentation.md`).
 
 ---
 
 ## Phase 4: Unit Testing (MANDATORY)
 
-Write unit tests for the code
-
 1. **Test Generation:** Every utility must have a corresponding unit test file (e.g., `[utility-name].test.ts`) generated according to `rules/documentation.md`.
 
 ---
 
-## Phase 5: Verification & Cleanup
+## Phase 5: Self-Reflection & Quality Audit (MANDATORY)
 
-Linting and testing
+Execute an explicit Self-Reflection Pass and output the `### Self-Reflection & Quality Audit` block (`rules/workflow.md`) evaluating:
+
+1. **Adversarial Checks:** Test boundary values (0, negative numbers, empty strings/arrays, `null`, `undefined`), unexpected API rejection formats, and floating-point precision issues.
+2. **Utility Rule Checklist:**
+   - [ ] Type Safety: Are there any `any` casts or unhandled implicit types?
+   - [ ] Pure Function: Is the utility deterministic and side-effect free?
+   - [ ] TSDoc Completeness: Are `@param`, `@returns`, and `@throws` fully annotated in English?
+3. **Identified Bugs & Fixes:** Document any unhandled exceptions or edge cases found and corrected.
+
+---
+
+## Phase 6: Verification & Cleanup
 
 1. **Verification Gate:** Lint the code and run tests.
 2. **Code Cleanup:** Mark temporary structures with `// TODO: REMOVE BEFORE PRODUCTION`.

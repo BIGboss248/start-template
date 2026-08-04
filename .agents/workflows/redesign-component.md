@@ -9,25 +9,25 @@ This workflow defines the step-by-step process to follow when refactoring or red
 
 ---
 
-## Phase 1: Pre-Flight & Planning
+## Phase 1: Pre-Flight Planning & Source Audit
 
 Before modifying any styling or markup:
 
-1. **Chain of Thought Planning:** Plan the visual changes, styling strategy, and animation pipelines.
-2. **Behavior Analysis:** Analyze the existing component's prop interface, callbacks, hooks, and internal state. The redesign **must not** break existing behavior.
+1. **JSON Pre-Flight Plan:** Output the JSON plan schema as required by `rules/workflow.md`. Audit relevant sources (`AGENTS.md`, `rules/new-react-components.md`, `rules/seo.md`).
+2. **Behavior Analysis:** Analyze the existing component's prop interface, callbacks, hooks, and internal state. The redesign **must not** break existing behavior or consumer props.
 3. **Shadcn Component Check:** Replace custom elements with standard Shadcn UI components where beneficial.
 4. **GSAP Skills Check:** Check local GSAP skills for complex animations.
-5. **RSC vs. Client Boundary Check:** Maintain the existing rendering strategy (`rules/architecture.md`). Isolate new interactivity into leaf Client Components rather than converting the entire component.
+5. **RSC vs. Client Boundary Check:** Maintain the existing rendering strategy (`rules/new-react-components.md`). Isolate new interactivity into leaf Client Components rather than converting the entire component.
 
 ---
 
 ## Phase 2: Implementation & Styling
 
-1. **Styling:** Exclusively use Shadcn CSS variables and Tailwind logical properties. Merge classes with `cn(...)` (`rules/ui-styling.md`).
-2. **Loading Skeletons & CLS Prevention:** Update corresponding `<Skeleton>` fallbacks to match new dimensions exactly (`rules/ui-styling.md`).
-3. **Responsive Layouts:** Ensure responsiveness across all devices.
+1. **Styling:** Exclusively use Shadcn CSS variables and Tailwind logical properties. Merge classes with `cn(...)` (`rules/new-react-components.md`).
+2. **Loading Skeletons & CLS Prevention:** Update corresponding `<Skeleton>` fallbacks to match new dimensions exactly.
+3. **Responsive Layouts:** Ensure responsiveness across mobile, tablet, and desktop layout variants.
 4. **Animations:** Use GSAP for complex timelines, referencing GSAP skills when applicable.
-5. **Asset Optimization:** Exclusively use Next.js `<Image>` components (`rules/ui-styling.md`).
+5. **Asset Optimization:** Exclusively use Next.js `<Image>` components.
 
 ---
 
@@ -45,7 +45,21 @@ Before modifying any styling or markup:
 
 ---
 
-## Phase 5: Verification & Cleanup
+## Phase 5: Self-Reflection & Quality Audit (MANDATORY)
+
+Execute an explicit Self-Reflection Pass and output the `### Self-Reflection & Quality Audit` block (`rules/workflow.md`) evaluating:
+
+1. **Adversarial Checks:** Test visual regressions, check that no props were renamed/broken for existing consumers, and verify skeleton sizing during loading states.
+2. **Redesign Rule Checklist:**
+   - [ ] Props & Logic Preservation: Did the component redesign preserve 100% of existing behavior and callbacks?
+   - [ ] Styling Tokens: Are semantic tokens (`bg-background`, `text-foreground`) used exclusively?
+   - [ ] RTL/i18n: Are Tailwind logical properties (`ms-`, `pe-`) preserved across all modified classes?
+   - [ ] Tests: Are existing `data-testid` attributes preserved or updated in test files?
+3. **Identified Bugs & Fixes:** Document any broken styles, layout shifts, or lost props identified and corrected.
+
+---
+
+## Phase 6: Verification & Cleanup
 
 1. **Verification Gate:** Do NOT manually run checks. Rely on `pre-commit` hooks, or use the `/verify-build` workflow if manual verification is requested.
 2. **Code Cleanup:** Remove any temporary test styling or console logs (`// TODO: REMOVE BEFORE PRODUCTION`).

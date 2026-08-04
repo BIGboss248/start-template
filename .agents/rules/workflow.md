@@ -24,11 +24,11 @@ Output the plan inside a fenced `json` code block formatted strictly to the foll
   "sources_audited": [
     {
       "path": ".agents/rules/workflow.md",
-      "scope_summary": "Extracted planning format and commit guidelines"
+      "scope_summary": "Extracted planning format, self-reflection rules, and commit guidelines"
     },
     {
       "path": ".agents/workflows/create-component.md",
-      "scope_summary": "Extracted component placement, skeleton, and TSDoc phases"
+      "scope_summary": "Extracted component placement, skeleton, TSDoc, and reflection phases"
     }
   ],
   "subtasks": [
@@ -38,6 +38,14 @@ Output the plan inside a fenced `json` code block formatted strictly to the foll
       "workflow_phase_ref": "Phase 1: Pre-Flight & Planning",
       "tool_intents": ["view_file", "write_to_file"],
       "verification_criteria": "Clear testable criterion to mark task complete",
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "description": "Perform Self-Reflection & Quality Audit",
+      "workflow_phase_ref": "Phase 4: Self-Reflection & Quality Audit",
+      "tool_intents": [],
+      "verification_criteria": "Output mandatory Self-Reflection block with 3 adversarial edge-case checks",
       "status": "pending"
     }
   ],
@@ -54,6 +62,21 @@ Output the plan inside a fenced `json` code block formatted strictly to the foll
 * **Approval Gate:** Wait for the user to approve the JSON plan before proceeding to Step 1.
 * **Sequential Execution:** Execute subtasks one by one. Update the user on progress after completing each step.
 * **Dynamic Re-planning:** If runtime findings or unexpected errors require modifying the plan, re-emit the updated JSON plan block with modified `subtasks` or `status` values for user review.
+
+## Self-Reflection & Quality Audit (MANDATORY)
+
+Before completing any non-trivial code implementation or presenting final work to the user, you MUST execute a dedicated **Self-Reflection Pass**.
+
+### Anti-Bypass Directive
+> [!CAUTION]
+> You are strictly forbidden from skipping Self-Reflection or stating "No issues found" without explicitly outputting the required 3-part markdown critique block. Confirmation bias is forbidden; approach your own output as an aggressive third-party code reviewer.
+
+### Mandatory Self-Critique Block Format
+You MUST output a fenced Markdown section titled `### Self-Reflection & Quality Audit` containing:
+
+1. **Adversarial Edge-Case Checks:** Test your implementation against at least 3 failure scenarios (e.g., null/undefined state, async race conditions, slow network streaming, empty arrays).
+2. **Domain Rule Compliance Audit:** Explicitly verify compliance against loaded `.agents/rules/` (e.g., TSDoc `@param`/`@returns`/`@throws` completeness, Tailwind logical properties `ms-`/`pe-`, semantic theme tokens, RSC boundaries).
+3. **Identified Bugs & Corrections:** Explicitly document any bugs, missing requirements, or edge-case oversights identified during self-critique and detail how they were fixed.
 
 ## Task Segmentation
 
