@@ -25,16 +25,16 @@ When evaluating instructions, rules, and workflows, the AI agent MUST resolve co
 │ LEVEL 3: Project Specifications (.agents/PROJECT.md)                        │
 │  └── Project context, active database, framework, client info, site map      │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ LEVEL 4: Project Overrides (.agents/overrides/rules/ & /workflows/)        │
+│ LEVEL 4: Project Overrides (.agents/rules/!<file>.md & /workflows/!<file>.md)│
 │  └── HIGHEST PRECEDENCE: Local overrides & appends for this specific project│
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Override & Append Evaluation Policy
 
-Before reading a core directive from `.agents/core/`:
-1. **Check for Override**: Check `.agents/overrides/rules/` (or `.agents/overrides/workflows/`). If a file with the **exact same filename** exists, load the override version instead of the core version.
-2. **Check for Appends**: Load any additional custom rules or workflows located in `.agents/overrides/`.
+Before loading any base directive from `.agents/rules/` or `.agents/workflows/`:
+1. **Check for Exclamation Override (`!` Prefix)**: Check for a file with the exact same name prefixed with `!` (e.g., `!workflow.md` overrides `workflow.md`, `!framework-nextjs.md` overrides `framework-nextjs.md`, `!create-component.md` overrides `create-component.md`). If a `!` prefixed file exists, load the `!` version INSTEAD of the base version.
+2. **Check for Appends**: Any new file created in `.agents/rules/` or `.agents/workflows/` without a `!` prefix or matching base file is loaded as an appended rule or workflow for this project.
 
 ---
 
@@ -66,7 +66,7 @@ To ensure AI tools and IDEs auto-index all directives cleanly, rules and workflo
 
 ## 1. Universal Rules & Workflows (Framework-Agnostic)
 
-*Located in `.agents/rules/` and `.agents/workflows/` (overridden by `.agents/overrides/` if present).*
+*Located in `.agents/rules/` and `.agents/workflows/` (overridden by `!<filename>.md` if present).*
 
 ### Universal Rules (`.agents/rules/`)
 1. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
