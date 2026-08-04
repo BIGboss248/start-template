@@ -4,51 +4,63 @@ This guide explains how to manage, update, and synchronize AI agent rules and wo
 
 ---
 
-## 1. Directory & Layer Architecture
+## 1. Directory & Submodule Architecture
 
-Your workspace uses a 4-level precedence cascade. Rules defined at higher levels automatically override lower levels.
-
-To ensure AI tools and IDEs auto-index all directives natively, rules and workflows are stored as flat files directly under `rules/` and `workflows/` without nested subdirectories.
+When using Git Submodules to synchronize rules across projects, the Git submodule is cloned directly to **`.agents`** (or **`.agents/core`**).
 
 ```
-📁 project-root/
-├── 📄 AGENTS.md                          <-- AI Entry Point & Precedence Router (Do not edit per project)
+📁 project-root/ (Parent Project Git Repo)
+├── 📄 AGENTS.md                          <-- AI Entry Point & Precedence Router (Tracked in project repo)
 ├── 📁 docs/
 │   └── 📄 agent-rules-management.md      <-- This documentation file
-└── 📁 .agents/
-    ├── 📄 PROJECT.md                     <-- Level 3: Project Context & Metadata (NEVER overwritten)
-    ├── 📁 rules/       [SUBMODULE] ──────► Flat Rules Directory
-    │   ├── 📄 workflow.md                 <-- Base universal rule
-    │   ├── 📄 !workflow.md                <-- Level 4: Project Override (Takes highest priority!)
-    │   ├── 📄 framework-nextjs.md         <-- Flat Framework Rule
-    │   └── 📄 custom-project-rule.md      <-- Appended Project Rule
-    └── 📁 workflows/   [SUBMODULE] ──────► Flat Workflows Directory
-        ├── 📄 create-component.md         <-- Base universal workflow
-        ├── 📄 !create-component.md        <-- Level 4: Project Override Workflow (Takes highest priority!)
-        └── 📄 nextjs-create-component.md  <-- Flat Framework Workflow
+└── 📁 .agents/       [GIT SUBMODULE] ───► Cloned from git@github.com:bigboss248/start-template.git
+    ├── 📄 PROJECT.md                     <-- Project Context & Metadata (Untracked by central submodule)
+    ├── 📁 rules/                         <-- Flat Rules Directory
+    │   ├── 📄 workflow.md                 <-- Tracked Core Rule (Synced via Git)
+    │   ├── 📄 !workflow.md                <-- Project Override (Untracked local file — SAFE)
+    │   └── 📄 framework-nextjs.md         <-- Tracked Core Rule (Synced via Git)
+    └── 📁 workflows/                     <-- Flat Workflows Directory
+        ├── 📄 create-component.md         <-- Tracked Core Workflow (Synced via Git)
+        └── 📄 !create-component.md        <-- Project Override Workflow (Untracked local file — SAFE)
 ```
-
-### Precedence Order (Lowest to Highest)
-1. **Level 1: System Base** (`~/.gemini/config/AGENTS.md`) - System-wide user settings.
-2. **Level 2: Core Directives** (`.agents/core/rules/` & `.agents/core/workflows/`) - Universal rules synced from central GitHub repo.
-3. **Level 3: Project Context** (`.agents/PROJECT.md`) - Active DB, framework version, client info, site map.
-4. **Level 4: Exclamation Prefix Overrides** (`.agents/rules/!<file>.md` & `.agents/workflows/!<file>.md`) - **HIGHEST PRECEDENCE**: Local overrides prefixed with `!`.
 
 ---
 
-## 2. Exclamation (`!`) Prefix Override Mechanism
+## 2. Git Submodule Sync & Untracked Local Files Policy
+
+### How Submodule Updates Work
+
+When you clone `.agents` as a Git Submodule:
+- **Tracked Files**: Files originating from the central rules repository (`rules/workflow.md`, `rules/framework-nextjs.md`, `workflows/create-component.md`) are tracked by the submodule.
+- **Untracked Local Files**: Any project-specific files added locally in your repository—such as `.agents/PROJECT.md`, local override files (`.agents/rules/!workflow.md`), or custom app rules—are **untracked by the central submodule repository**.
+
+### Why Updates Will Never Break Sync
+
+When you pull updated rules from the central repository using:
+
+```bash
+git submodule update --remote --merge
+```
+
+1. **Only Tracked Files Update**: Git updates ONLY the tracked core rules and workflows coming from the central repository.
+2. **Untracked Files Remain Safe**: Git **does NOT delete or overwrite untracked local files**. Your `.agents/PROJECT.md` and local `!*.md` override files will stay completely untouched and intact.
+3. **Zero Sync Conflicts**: Because local project files are untracked by the central submodule remote, there are no merge conflicts or stashing problems when updating rules.
+
+---
+
+## 3. Exclamation (`!`) Prefix Override Mechanism
 
 Instead of placing local overrides in a separate directory, override files are created directly inside `.agents/rules/` or `.agents/workflows/` prefixed with an exclamation mark (`!`):
 
 - **Overriding a Rule**: To override `workflow.md` or `framework-nextjs.md`, create `.agents/rules/!workflow.md` or `.agents/rules/!framework-nextjs.md`.
 - **Overriding a Workflow**: To override `create-component.md`, create `.agents/workflows/!create-component.md`.
-- **Appending a Rule/Workflow**: Create any file without a `!` prefix or matching base filename (e.g. `stripe-payments.md`). It will be loaded alongside core rules.
+- **Appending a Rule/Workflow**: Create any file without a `!` prefix or matching base filename (e.g. `.agents/rules/stripe-payments.md`). It will be loaded alongside core rules.
 
 **AI Evaluation Rule**: When reading directives, the AI agent checks for a `!` prefixed file matching the target file name. If found, the AI agent uses the `!` version **instead** of the base version.
 
 ---
 
-## 3. Framework Rule & Workflow Naming Conventions (Prefix Format)
+## 4. Framework Rule & Workflow Naming Conventions (Prefix Format)
 
 Do NOT place rules or workflows in subdirectories (like `frameworks/nextjs.md` or `nextjs/create-component.md`), because IDE indexers may miss them.
 
@@ -63,52 +75,47 @@ AI agents dynamically inspect `Framework & Version` in `.agents/PROJECT.md` and 
 
 ---
 
-## 4. Setting Up `.agents/core` as a Git Submodule
+## 5. Setting Up `.agents` as a Git Submodule in a New Project
 
-### Step A: Create Your Central Rules Repository
-1. Create a new GitHub repository for your core rules, e.g., `github.com/bigboss248/start-template`.
-2. Push your universal `rules/` and `workflows/` folders to this repository.
-
-### Step B: Add Submodule to Template or Project Repo
-In your template or project root directory, link `.agents/core` as a Git Submodule:
+### Step A: Link Submodule to Your New Repository
+In your project root directory, run:
 
 ```bash
-# If .agents/core exists as a standard folder, clean or remove it before adding submodule
-git submodule add git@github.com:bigboss248/start-template.git .agents/core
+git submodule add git@github.com:bigboss248/start-template.git .agents
 ```
+
+### Step B: Create Your Project Context File
+Create `.agents/PROJECT.md` locally to store project-specific details (database, framework version, client info). This file is untracked by the central rules repo and remains local to your project.
 
 ---
 
-## 5. How to Update & Sync Rules Across Projects
+## 6. How to Update & Sync Rules Across Projects
 
-### When You Learn Something New & Update Universal Rules
-1. Make your improvements to the rules inside your central repo (`start-template`) or inside `.agents/core/` of any project.
-2. Commit and push from the central repo:
+### When You Learn Something New & Update Central Rules
+1. Edit universal rules inside your central repo (`start-template`).
+2. Commit and push:
    ```bash
    git add .
-   git commit -m "feat: enhance pre-flight planning schema and self-reflection checks"
+   git commit -m "feat: update Next.js RSC caching rules and workflow checklists"
    git push origin main
    ```
 
-### Syncing Updates in Any Project or Downstream Repo
-To pull the latest universal rules into any project, run:
+### Syncing Updates in Downstream Repositories
+To pull the latest rules into any project, run:
 
 ```bash
 git submodule update --remote --merge
 ```
 
-> [!NOTE]
-> **WHY YOUR PROJECT DATA IS SAFE**: Running `git submodule update --remote` strictly updates the core base rules. Your project configuration (`.agents/PROJECT.md`) and local exclamation overrides (`!*.md`) live safely alongside your project.
-
 ---
 
-## 6. Cloning a Repo with Submodules for New Projects
+## 7. Cloning a Project Repository with Submodules
 
-When initializing a new repository from your template or cloning an existing project:
+When cloning a project repository containing the `.agents` submodule:
 
 ```bash
 # Clone repository and initialize submodules in one step:
-git clone --recurse-submodules git@github.com:bigboss248/my-project.ok
+git clone --recurse-submodules git@github.com:bigboss248/my-project.git
 
 # Or if cloned without --recurse-submodules:
 git submodule update --init --recursive
