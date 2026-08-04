@@ -8,6 +8,8 @@ This guide explains how to manage, update, and synchronize AI agent rules and wo
 
 Your workspace uses a 4-level precedence cascade. Rules defined at higher levels automatically override lower levels.
 
+To ensure AI tools and IDEs auto-index all directives natively, rules and workflows are stored as flat files directly under `rules/` and `workflows/` without nested subdirectories.
+
 ```
 📁 project-root/
 ├── 📄 AGENTS.md                          <-- AI Entry Point & Precedence Router (Do not edit per project)
@@ -20,8 +22,8 @@ Your workspace uses a 4-level precedence cascade. Rules defined at higher levels
     │   ├── 📁 rules/                     <-- Add/override rules for this project
     │   └── 📁 workflows/                 <-- Add/override workflows for this project
     └── 📁 core/  [GIT SUBMODULE] ───────► Level 2: Central Universal Rules (Syncable via Git)
-        ├── 📁 rules/                     <-- Universal coding standards (workflow.md, seo.md, i18n.md)
-        └── 📁 workflows/                 <-- Universal task checklists (/create-component, /verify-build)
+        ├── 📁 rules/                     <-- Flat rule files (workflow.md, framework-nextjs.md)
+        └── 📁 workflows/                 <-- Flat workflow files (create-component.md, nextjs-create-component.md)
 ```
 
 ### Precedence Order (Lowest to Highest)
@@ -32,7 +34,22 @@ Your workspace uses a 4-level precedence cascade. Rules defined at higher levels
 
 ---
 
-## 2. Setting Up `.agents/core` as a Git Submodule
+## 2. Framework Rule & Workflow Naming Conventions (Prefix Format)
+
+Do NOT place rules or workflows in subdirectories (like `frameworks/nextjs.md` or `nextjs/create-component.md`), because IDE indexers may miss them.
+
+Instead, store all files in the root of `rules/` and `workflows/` using standard prefixes:
+
+- **Framework Rules**: Prefix with `framework-<name>.md`
+  - Example: `.agents/rules/framework-nextjs.md`
+- **Framework Workflows**: Prefix with `<name>-<workflow>.md`
+  - Example: `.agents/workflows/nextjs-create-component.md`
+
+AI agents dynamically inspect `Framework & Version` in `.agents/PROJECT.md` and look up files matching `framework-<name>.md` and `<name>-<workflow>.md`.
+
+---
+
+## 3. Setting Up `.agents/core` as a Git Submodule
 
 ### Step A: Create Your Central Rules Repository
 1. Create a new GitHub repository for your core rules, e.g., `github.com/bigboss248/start-template`.
@@ -55,7 +72,7 @@ This creates a `.gitmodules` file in your project root:
 
 ---
 
-## 3. How to Update & Sync Rules Across Projects
+## 4. How to Update & Sync Rules Across Projects
 
 ### When You Learn Something New & Update Universal Rules
 1. Make your improvements to the rules inside your central repo (`start-template`) or inside `.agents/core/` of any project.
@@ -78,23 +95,23 @@ git submodule update --remote --merge
 
 ---
 
-## 4. How to Override or Append Rules Per Project
+## 5. How to Override or Append Rules Per Project
 
 ### Scenario A: Appending a Custom Rule for a Specific Project
 If a project needs a rule that only applies to it (e.g., Stripe Payments or WebSockets):
-1. Create a new markdown file in `.agents/overrides/rules/` (e.g., `stripe-payments.md`).
+1. Create a new markdown file in `.agents/overrides/rules/` (e.g., `stripe-payments.md` or `framework-vue.md`).
 2. The AI agent will automatically load this rule alongside all core rules.
 
 ### Scenario B: Overriding a Universal Core Rule
 If a project needs a different workflow or rule than the universal core:
-1. Copy the filename of the core rule you want to modify (e.g., `workflow.md`).
+1. Copy the filename of the core rule you want to modify (e.g., `workflow.md` or `framework-nextjs.md`).
 2. Create a file with the **exact same name** inside `.agents/overrides/rules/` (`.agents/overrides/rules/workflow.md`).
 3. Modify the file to fit your project's custom requirements.
 4. The AI agent's precedence policy will prioritize `.agents/overrides/rules/workflow.md` over `.agents/core/rules/workflow.md`.
 
 ---
 
-## 5. Cloning a Repo with Submodules for New Projects
+## 6. Cloning a Repo with Submodules for New Projects
 
 When initializing a new repository from your template or cloning an existing project:
 

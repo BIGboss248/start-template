@@ -62,44 +62,48 @@ If `pre-commit` is not installed, install it. Also, if skills or listed context 
 
 # Agent Instructions & Project Standards (Decentralized)
 
-To reduce context pollution, project standards and step-by-step checklists are split into **Universal (Core)** and **Framework-Specific** directives:
+To ensure AI tools and IDEs auto-index all directives cleanly, rules and workflows are stored as flat files directly in `.agents/rules/` and `.agents/workflows/` (no subdirectories).
 
 ## 1. Universal Rules & Workflows (Framework-Agnostic)
 
-*Located in `.agents/core/rules/` and `.agents/core/workflows/` (overridden by `.agents/overrides/` if present).*
+*Located in `.agents/rules/` and `.agents/workflows/` (overridden by `.agents/overrides/` if present).*
 
-### Universal Rules
-1. **Workflow & Task Management** ([workflow.md](.agents/core/rules/workflow.md)) [MANDATORY for all tasks]:
+### Universal Rules (`.agents/rules/`)
+1. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
    Outlines the JSON Pre-Flight Plan & Source Audit requirements, Self-Reflection pass, branch/commit naming conventions, type/lint checks, and compliance policies.
-2. **Core Stack Standards** ([core-stack.md](.agents/core/rules/core-stack.md)):
+2. **Core Stack Standards** ([core-stack.md](.agents/rules/core-stack.md)):
    Framework-agnostic standards for Bun package manager execution and end-to-end TypeScript safety.
-3. **New React Components** ([new-react-components.md](.agents/core/rules/new-react-components.md)) [MANDATORY when creating components, pages, or layouts]:
+3. **New React Components** ([new-react-components.md](.agents/rules/new-react-components.md)) [MANDATORY when creating components, pages, or layouts]:
    Framework-agnostic guidelines for component reuse, placement, Tailwind logical styling (`ms-`, `pe-`), responsiveness, loading states, and commenting.
-4. **Search Engine Optimization** ([seo.md](.agents/core/rules/seo.md)):
+4. **Search Engine Optimization** ([seo.md](.agents/rules/seo.md)):
    Covers semantic HTML, dynamic sitemap updates, JSON-LD structured data (schema-dts), and robots indexation control.
-5. **Language & Internationalization** ([i18n.md](.agents/core/rules/i18n.md)):
+5. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
    Covers Edge-level Persian (i18n) middleware routing, bidirectional (RTL) HTML structures, localized link formatting utils, and Intl localization formatters.
-6. **Code Documentation & Testing** ([documentation.md](.agents/core/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
+6. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
    Specifies TSDoc parameters, automated unit testing guidelines (Jest/Vitest/Bun), Mermaid syntax, and localized README layouts.
 
-### Universal Workflows
-- [**/create-component**](.agents/core/workflows/create-component.md): Universal checklist for component creation.
-- [**/create-utility**](.agents/core/workflows/create-utility.md): Universal checklist for TypeScript utilities and functions.
-- [**/redesign-component**](.agents/core/workflows/redesign-component.md): Universal checklist for component refactoring and redesign.
-- [**/verify-build**](.agents/core/workflows/verify-build.md): Universal verification workflow for running builds and fixing errors.
+### Universal Workflows (`.agents/workflows/`)
+- [**/create-component**](.agents/workflows/create-component.md): Universal checklist for component creation.
+- [**/create-utility**](.agents/workflows/create-utility.md): Universal checklist for TypeScript utilities and functions.
+- [**/redesign-component**](.agents/workflows/redesign-component.md): Universal checklist for component refactoring and redesign.
+- [**/verify-build**](.agents/workflows/verify-build.md): Universal verification workflow for running builds and fixing errors.
 
 ---
 
-## 2. Framework-Specific Rules & Workflows (Dynamic Routing)
+## 2. Framework-Specific Rules & Workflows (Prefix Naming Format)
+
+To maximize IDE indexing and slash-command discovery without nested subdirectories, framework rules and workflows use a **Prefix Naming Format**:
+- **Framework Rules**: Prefix with `framework-<name>.md` inside `.agents/rules/`
+- **Framework Workflows**: Prefix with `<name>-<workflow>.md` inside `.agents/workflows/`
 
 *Inspect **`Framework & Version`** in [.agents/PROJECT.md](file:///.agents/PROJECT.md). Load ONLY the matching framework directive below and ignore non-active framework files.*
 
-### Framework Rules (`.agents/core/rules/frameworks/`)
-- **Next.js**: [nextjs.md](.agents/core/rules/frameworks/nextjs.md) [MANDATORY when working in Next.js]:
+### Framework Rules (`.agents/rules/framework-*.md`)
+- **Next.js**: [framework-nextjs.md](.agents/rules/framework-nextjs.md) [MANDATORY when working in Next.js]:
   Contains guidelines for Next.js App Router, React Server Components (RSC), Payload CMS 3.0, ISR caching, and Next.js optimized components (`<Link>`, `<Image>`).
 
-### Framework Workflows (`.agents/core/workflows/<framework>/`)
-- **Next.js Component Workflow**: [create-component.md](.agents/core/workflows/nextjs/create-component.md):
+### Framework Workflows (`.agents/workflows/<framework>-*.md`)
+- **Next.js Component Workflow**: [nextjs-create-component.md](.agents/workflows/nextjs-create-component.md):
   Extends component creation with Next.js specific steps (RSC boundary checks, ISR caching setup, `@vercel/react-transition-progress`).
 
-*Trigger conditional rules individually using the `framework_match` or `model_decision` loader based on the active framework and prompt topic.*
+*Trigger conditional rules individually by matching the framework name against `framework-<framework>.md` or `<framework>-<workflow>.md`.*
