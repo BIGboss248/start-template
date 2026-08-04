@@ -16,22 +16,6 @@ description: Guidelines for creating new react components mandatory when decidin
 * **Placement:** Store and categorize all new components under [new components dir](@/AGENTS.md#project-context--metadata).
 * **Imports:** Always import packages and files relative to the project root (e.g., using `@/` path).
 
-## React Server components(RSC)
-
-* **Default to React Server Components (RSC):** Make the component a cacheable Server Component by default. Fetch data, resolve metadata, and render layout/static contents on the server.
-* **Maximize RSC Coverage:** Prioritize splitting components to isolate interactivity. Never turn a large, layout-heavy component into a Client Component just because one sub-element (e.g. a button, filter, or input field) requires interactivity. If the component had more than one file create a directory with the name of the compoenent and store all relevant components there.
-* **Isolate Client Components (Leaf Components):**
-  * Push the `"use client"` boundary as far down the component tree as possible (often to leaf components).
-  * Extract interactive elements (state managers, click handlers, input forms, GSAP animations) into separate small client components.
-  * Keep the parent component as a Server Component.
-* **RSC Composition Pattern:**
-  * If a Client Component needs to wrap or contain Server Components (e.g. wrapper layouts, context providers, or animation container frames), pass the Server Components as `children` or standard React props.
-  * Do not import Server Components directly inside a `"use client"` file, as this automatically forces the imported Server Component to run on the client, losing server-side data fetching and cacheability.
-
-## Component caching
-
-* **Rendering Strategy:** The preferred rendering strategy is Incremental Static Regeneration (ISR). Refer to the [Next.js ISR guide](node_modules/next/dist/docs/02-pages/02-guides/incremental-static-regeneration.md) if the [project framewrok](@/AGENTS.md#project-context--metadata). **Never cache content if it introduces a security risk.** Do not cache user-specific data or routes containing sensitive transactional information.
-
 ## Component styling
 
 * **centeral design**: The project uses [Style file](@/AGENTS.md#project-context--metadata) CSS variable and tailwind token system. Do NOT use hardcoded Tailwind color scales (e.g., `bg-blue-500`) unless explicitly requested. Strictly use semantic theme tokens (e.g., `bg-background`, `text-muted-foreground`, `border-border`) to ensure perfect compatibility across Light and Dark modes. Chosen colors must pass accessibility contrast ratios in both modes.
@@ -65,10 +49,6 @@ description: Guidelines for creating new react components mandatory when decidin
   * **Top Bar Styling:** Render progress bars fixed at the top (`fixed top-0 left-0 right-0 z-[9999] h-1 pointer-events-none`) styled with primary theme tokens (`bg-primary`), smooth width transitions (`transition-all duration-200 ease-out`), subtle glow/shadow (`shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]`), and graceful opacity fade-outs.
   * **Micro-Flicker Prevention:** Apply a ~100ms delay threshold before rendering progress indicators on fast sub-100ms navigations to avoid jarring flashes.
   * **Accessibility (a11y):** Must include ARIA attributes (`role="progressbar"`, `aria-busy={isPending}`, `aria-valuemin={0}`, `aria-valuemax={100}`, dynamic `aria-valuenow`) and respect `@media (prefers-reduced-motion: reduce)` by disabling sliding animations in favor of opacity fades.
-
-## NextJS specific
-
-If [framework](@/AGENTS.md#project-context--metadata) is NextJS use their own optimized components to create new components or pages (e.g, use `Image`, `Link`)
 
 ## Commenting
 

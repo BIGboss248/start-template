@@ -60,21 +60,29 @@ Before substantial work:
 
 If `pre-commit` is not installed install it also if the skills and the listed files are missing prompt user to add them in pre-flight
 
+## Framework Routing Directive
+
+Before executing tasks, inspect **`Framework & Version`** under Project Context & Metadata:
+* Dynamically load `.agents/rules/frameworks/<framework>.md` matching the active framework (e.g., [nextjs.md](.agents/rules/frameworks/nextjs.md) for Next.js).
+* Do NOT load rule files or directives designated for non-active frameworks.
+
 # Agent Instructions & Project Standards (Decentralized)
 
 To reduce context pollution and ensure the agent only loads rules relevant to the active request, the detailed project standards have been split into individual rule files located under the `.agents/rules/` directory:
 
-1. **Core Stack Standards** ([core-stack.md](.agents/rules/core-stack.md)):
-   Contains guidelines for Next.js rendering strategies, Payload CMS integration, Bun package manager execution, and end-to-end TypeScript safety.
-2. **New React Components** ([new-react-components.md](.agents/rules/new-react-components.md)) [MANDATORY when creating new react components, new web pages or layouts]:
-   Guidelines for creating new react components, RSC vs Client boundary strategies, and styling standards.
-3. **Search Engine Optimization** ([seo.md](.agents/rules/seo.md)):
+1. **Framework Specific Rule** ([.agents/rules/frameworks/nextjs.md](.agents/rules/frameworks/nextjs.md)) [MANDATORY when working in Next.js]:
+   Contains guidelines for Next.js App Router, React Server Components (RSC), Payload CMS, ISR caching, and Next.js optimized components.
+2. **Core Stack Standards** ([core-stack.md](.agents/rules/core-stack.md)):
+   Framework-agnostic standards for Bun package manager execution and end-to-end TypeScript safety.
+3. **New React Components** ([new-react-components.md](.agents/rules/new-react-components.md)) [MANDATORY when creating new react components, new web pages or layouts]:
+   Framework-agnostic guidelines for component reuse, placement, Tailwind logical styling, responsiveness, loading states, and commenting.
+4. **Search Engine Optimization** ([seo.md](.agents/rules/seo.md)):
    Covers semantic HTML, dynamic sitemap updates, JSON-LD structured data (schema-dts), and robots indexation control.
-4. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
+5. **Language & Internationalization** ([i18n.md](.agents/rules/i18n.md)):
    Covers Edge-level Persian (i18n) middleware routing, bidirectional (RTL) HTML structures, localized link formatting utils, and Intl localization formatters.
-5. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
+6. **Workflow & Task Management** ([workflow.md](.agents/rules/workflow.md)) [MANDATORY for all tasks]:
    Outlines the JSON Pre-Flight Plan & Source Audit requirements, branch/commit naming conventions, type/lint checks, and compliance policies.
-6. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
+7. **Code Documentation & Testing** ([documentation.md](.agents/rules/documentation.md)) [Inline Documentation & TSDoc section is MANDATORY]:
    Specifies TSDoc parameters, automated unit testing guidelines (Jest/Vitest/Bun), Mermaid syntax, and localized README layouts.
 
-*Trigger conditional rules individually using the `model_decision` loader based on the topic of the current prompt.*
+*Trigger conditional rules individually using the `framework_match` or `model_decision` loader based on the topic of the current prompt.*
