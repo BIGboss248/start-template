@@ -1,15 +1,59 @@
 ---
 trigger: always_on
-description: Rules for agent task planning (Chain of Thought), git branch management, commit naming conventions, pre-commit verification checks, and privacy consent. MANDATORY for all tasks.
+description: Rules for agent task planning (JSON Pre-Flight Plan & Source Audit), git branch management, commit naming conventions, pre-commit verification checks, and privacy consent. MANDATORY for all tasks.
 ---
 
 # Workflow & Task Management (MANDATORY)
 
-## Pre-Flight Planning (The "Chain of Thought" Rule)
+## Pre-Flight Planning (Structured JSON Plan & Source Audit)
 
-* Before writing any code or executing terminal commands for a new feature, you MUST output a numbered list detailing the exact steps you plan to take.
-* Wait for the user to approve the plan before proceeding to Step 1.
-* Execute ONE logical step at a time to maintain context.
+Before writing any code or executing terminal commands for a non-trivial task or feature implementation, you MUST perform a source audit and output a structured JSON plan block for user review and approval.
+
+### 1. Mandatory Source Audit
+Prior to generating the JSON plan, you MUST inspect relevant workspace directives:
+* Read `.agents/rules/` files applicable to the request domain.
+* Read any matching `.agents/workflows/*.md` file for step-by-step phase checklists.
+* Read `AGENTS.md` and user-specified documentation.
+
+### 2. JSON Plan Schema Specification
+Output the plan inside a fenced `json` code block formatted strictly to the following structure:
+
+```json
+{
+  "goal": "Clear summary of the feature or task objective",
+  "sources_audited": [
+    {
+      "path": ".agents/rules/workflow.md",
+      "scope_summary": "Extracted planning format and commit guidelines"
+    },
+    {
+      "path": ".agents/workflows/create-component.md",
+      "scope_summary": "Extracted component placement, skeleton, and TSDoc phases"
+    }
+  ],
+  "subtasks": [
+    {
+      "id": 1,
+      "description": "Atomic description of subtask 1",
+      "workflow_phase_ref": "Phase 1: Pre-Flight & Planning",
+      "tool_intents": ["view_file", "write_to_file"],
+      "verification_criteria": "Clear testable criterion to mark task complete",
+      "status": "pending"
+    }
+  ],
+  "eval_metrics": [
+    "Objective criteria defining successful overall task completion"
+  ],
+  "risk_factors": [
+    "Potential edge cases, breaking changes, or backup strategies"
+  ]
+}
+```
+
+### 3. Execution & Progress Policy
+* **Approval Gate:** Wait for the user to approve the JSON plan before proceeding to Step 1.
+* **Sequential Execution:** Execute subtasks one by one. Update the user on progress after completing each step.
+* **Dynamic Re-planning:** If runtime findings or unexpected errors require modifying the plan, re-emit the updated JSON plan block with modified `subtasks` or `status` values for user review.
 
 ## Task Segmentation
 
