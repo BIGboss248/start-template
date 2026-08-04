@@ -10,7 +10,7 @@ description: Rules for inline TSDoc annotations (MANDATORY for all code changes)
 > [!IMPORTANT]
 > This section is **MANDATORY** and must be strictly followed for all code generation and modifications.
 
-* **TSDoc Standard:** You MUST use strict `TSDoc` syntax (not legacy JSDoc) for all exported functions, classes, Next.js components, and Payload CMS configurations.
+* **TSDoc Standard:** You MUST use strict `TSDoc` syntax (not legacy JSDoc) for all exported functions, classes, UI components, and backend configurations.
 * **English Language Requirement:** All inline comments, TSDoc blocks, system diagrams, and documentation files (such as `ARCHITECTURE.md` and module-specific `README.modules.md` files) MUST be written exclusively in **English**, regardless of the application's target language, locale (e.g., Persian/fa), or translation settings.
 * **Individual Tag Requirements:**
   * **Generics (`@typeParam`):** You MUST write a separate `@typeParam` tag for *every single* generic type parameter. Explain its constraints, what it represents, and how it is used.
@@ -65,7 +65,7 @@ export async function processTransaction<TReceipt extends TransactionReceipt>(
 * **Trigger:** Evaluate the codebase layout on *every code generation cycle*. If a change alters data flow, module boundaries, or dependencies, immediately update this diagram.
 * **Modular Updates:** ONLY append or modify the specific section relating to your current task to prevent context loss.
 * **Mermaid Syntax Validation:** Double-check your Mermaid syntax for strict compliance (e.g., quote labels containing special characters) before saving the file to prevent errors.
-* **Payload CMS ERDs:** Any time you modify a Payload CMS Collection or Global, you MUST update the Entity-Relationship Diagram (ERD) inside `ARCHITECTURE.md` to reflect the new database schema.
+* **Database ERDs:** Any time you modify a database collection, schema, or model, you MUST update the Entity-Relationship Diagram (ERD) inside `ARCHITECTURE.md` to reflect the new database schema.
 
 ### Localized Algorithmic Documentation (`README.modules.md`)
 
@@ -75,5 +75,5 @@ export async function processTransaction<TReceipt extends TransactionReceipt>(
   2. **Execution Flow / Internal Data Flow:** A localized Mermaid diagram visualizing state changes, conditional branches, or internal control loops of that specific file/directory (e.g., Zustand state, Server Action mutations).
   3. **Consumer Tracking (File References):** Explicitly list the exact file paths of every file that imports or consumes this module. Update this list if implemented in new files.
   4. **Integration Graph (Mermaid):** A Mermaid flowchart that visually connects this module to the files/routes (`page.tsx`, `layout.tsx`) that ultimately render/use it.
-  5. **Dependencies:** Note any external packages or specific Payload CMS API endpoints this module relies on.
+  5. **Dependencies:** Note any external packages or API endpoints this module relies on.
 * **Scope:** Apply this rule retroactively when refactoring, and mandatorily for all brand-new code implementations.

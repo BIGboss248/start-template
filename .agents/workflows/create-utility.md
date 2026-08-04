@@ -17,7 +17,7 @@ Before writing any code:
 ## Phase 2: Architectural Placement & Types
 
 1. **Directory Placement:** Store global utilities under [Utility dir](@/AGENTS.md#project-context--metadata). Store module-specific utilities within the immediate folder.
-2. **Type Safety:** Write fully typed TypeScript functions avoiding `any` or `@ts-ignore` as dictated by `rules/core-stack.md`. Ensure E2E type safety with Payload CMS types if applicable.
+2. **Type Safety:** Write fully typed TypeScript functions avoiding `any` or `@ts-ignore` as dictated by `rules/core-stack.md`. Ensure E2E type safety with generated backend/CMS interfaces if applicable.
 3. **Imports Standard:** Always import packages and files relative to the project root using `@/` path aliases.
 
 ---

@@ -37,10 +37,9 @@ Before writing any code:
 - Variables and tailwind tokens, use Tailwind logical properties.
 - Merge classes with `cn(...)` (`rules/new-react-components.md`).
 - Use [Animation library](../../AGENTS.md#project-context--metadata) for animations.
-- If [Framework & Version](../../AGENTS.md#project-context--metadata) is NextJS use their own optimized components instead of normal ones (e.g `<Link>` instead of `<a>`)
 
-1. **Rendering Strategy (RSC vs. Client):** Read [new component rule](@/rules/new-react-components.md). If needed separate client components from the created code into their own files and store them.
-2. **Caching Configuration:** Setup caching. If the component is cacheable, configure it to be cached properly to respect Incremental Static Regeneration (ISR).
+1. **Rendering Strategy Check:** Select appropriate rendering strategy (SSR, SSG, ISR, CSR) based on component requirements.
+2. **Caching Configuration:** Setup caching if the component data is cacheable.
 
 ---
 
@@ -64,9 +63,9 @@ Before writing any code:
 
 Execute an explicit Self-Reflection Pass and output the `### Self-Reflection & Quality Audit` block (`rules/workflow.md`) evaluating:
 
-1. **Adversarial Checks:** Test responsive behavior (mobile/tablet/desktop breakpoint leaks), skeleton rendering during streaming, and missing prop handling.
+1. **Adversarial Checks:** Test responsive behavior (mobile/tablet/desktop breakpoint leaks), skeleton rendering during loading states, and missing prop handling.
 2. **Component Rule Checklist:**
-   - [ ] RSC Boundary: Is `"use client"` pushed down to leaf interactive nodes only?
+   - [ ] Component Boundaries: Are rendering strategy boundaries and state hooks cleanly structured?
    - [ ] Styling: Are semantic color tokens used (`bg-background`) instead of hardcoded tailwind colors?
    - [ ] RTL/i18n: Are Tailwind logical properties (`ms-`, `pe-`) used exclusively?
    - [ ] TSDoc: Are `@typeParam`, `@param`, `@defaultValue`, `@returns`, `@throws` present in English?

@@ -35,3 +35,15 @@ description: Next.js App Router, React Server Components (RSC), Payload CMS, ISR
 ## NextJS specific
 
 If [framework](@/AGENTS.md#project-context--metadata) is NextJS use their own optimized components to create new components or pages (e.g, use `Image`, `Link`)
+
+## Route Navigation Progress & Streaming
+
+* **Global Route Navigation Progress:**
+  * When creating pages, navigation menus, or custom links in Next.js App Router, ensure route transition progress is implemented using `@vercel/react-transition-progress` (`<ProgressBarProvider>` and progress-aware `<Link>` or `useProgress()`).
+  * Ensure immediate visual acknowledgment (<100ms) upon click/tap when users navigate slow networks or stream Server Components, preventing perceived frozen states and repeated clicks.
+  * **Top Bar Styling:** Render progress bars fixed at the top (`fixed top-0 left-0 right-0 z-[9999] h-1 pointer-events-none`) styled with primary theme tokens (`bg-primary`), smooth width transitions (`transition-all duration-200 ease-out`), subtle glow/shadow (`shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]`), and graceful opacity fade-outs.
+
+## Payload CMS ERDs & Schemas
+
+* **Payload CMS ERDs:** Any time you modify a Payload CMS Collection or Global, you MUST update the Entity-Relationship Diagram (ERD) inside `ARCHITECTURE.md` to reflect the new database schema.
+

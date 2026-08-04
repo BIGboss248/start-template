@@ -17,7 +17,7 @@ Before modifying any styling or markup:
 2. **Behavior Analysis:** Analyze the existing component's prop interface, callbacks, hooks, and internal state. The redesign **must not** break existing behavior or consumer props.
 3. **Shadcn Component Check:** Replace custom elements with standard Shadcn UI components where beneficial.
 4. **GSAP Skills Check:** Check local GSAP skills for complex animations.
-5. **RSC vs. Client Boundary Check:** Maintain the existing rendering strategy (`rules/new-react-components.md`). Isolate new interactivity into leaf Client Components rather than converting the entire component.
+5. **Rendering Strategy Check:** Maintain existing component rendering boundaries. Isolate interactive elements into separate client/leaf modules if required by the framework.
 
 ---
 
@@ -27,7 +27,7 @@ Before modifying any styling or markup:
 2. **Loading Skeletons & CLS Prevention:** Update corresponding `<Skeleton>` fallbacks to match new dimensions exactly.
 3. **Responsive Layouts:** Ensure responsiveness across mobile, tablet, and desktop layout variants.
 4. **Animations:** Use GSAP for complex timelines, referencing GSAP skills when applicable.
-5. **Asset Optimization:** Exclusively use Next.js `<Image>` components.
+5. **Asset Optimization:** Use framework-optimized image components or standard optimized assets.
 
 ---
 

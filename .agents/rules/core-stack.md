@@ -11,4 +11,4 @@ description: Framework-agnostic standards for Bun package manager and end-to-end
 
 ## End-to-End Type Safety
 
-* Maintain strict TypeScript adherence. Any changes to Payload CMS collections MUST be followed by regenerating Payload's TypeScript interfaces and utilizing those generated types throughout the Next.js frontend.
+* Maintain strict TypeScript adherence. Any changes to CMS collections or backend models MUST be followed by regenerating TypeScript interfaces and utilizing those generated types throughout the application frontend.

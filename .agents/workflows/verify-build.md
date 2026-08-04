@@ -31,7 +31,7 @@ Execute the verification steps in order.
   ```bash
   bun run build
   ```
-- If the build fails, analyze the output to locate TypeScript, React compiler, or Next.js layout compilation issues.
+- If the build fails, analyze the output to locate TypeScript, compiler, or layout compilation issues.
 
 ---
 
@@ -47,7 +47,7 @@ If any of the verification steps fail, you MUST systematically resolve the error
 - For remaining manual lint errors, open the offending files, identify the violation of style/formatting, and modify the code to comply.
 
 ### 2. Fix TypeScript & Build Errors
-- Identify the exact files, line numbers, and error messages from the TypeScript or Next.js build output.
+- Identify the exact files, line numbers, and error messages from the TypeScript or framework build output.
 - Check imports, types, type definitions, or missing properties.
 - Edit the source files to resolve the types or compile-time issues.
 - Do NOT bypass TypeScript check issues with `any` unless absolutely necessary and documented.
