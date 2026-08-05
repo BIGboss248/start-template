@@ -1,7 +1,7 @@
 # Active Project Context & Metadata
 
 > [!IMPORTANT]
-> **PROJECT-SPECIFIC DATA BINDING**: This file serves as the single source of truth for the AI agent regarding this specific project's architecture, dependencies, and business rules. It lives outside the central rules submodule (`.agents/core/`) and is **never overwritten** when syncing universal rules or updating templates.
+> **PROJECT-SPECIFIC DATA BINDING**: This file serves as the single source of truth for the AI agent regarding this specific project's architecture, dependencies, and business rules. It lives outside the central rules submodule (`.agents/`) and is **never overwritten** when syncing universal rules or updating templates.
 
 ## Project Context & Metadata
 

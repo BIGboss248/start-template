@@ -6,7 +6,7 @@ This guide explains how to manage, update, and synchronize AI agent rules and wo
 
 ## 1. Directory & Submodule Architecture
 
-When using Git Submodules to synchronize rules across projects, the Git submodule is cloned directly to **`.agents`** (or **`.agents/core`**).
+When using Git Submodules to synchronize rules across projects, the Git submodule is cloned directly to **`.agents`**.
 
 ```
 📁 project-root/ (Parent Project Git Repo)

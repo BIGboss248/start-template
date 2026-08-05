@@ -1,7 +1,7 @@
 # Agent Directives & Layered Context Routing
 
 > [!IMPORTANT]
-> **SINGLE SOURCE OF TRUTH FOR AI AGENT**: This file acts as the universal entry point and routing hub for the AI agent. Project-specific metadata is isolated in `.agents/PROJECT.md` so that central agent rules (`.agents/core/`) can be synced via Git Submodule without touching project settings.
+> **SINGLE SOURCE OF TRUTH FOR AI AGENT**: This file acts as the universal entry point and routing hub for the AI agent. Project-specific metadata is isolated in `.agents/PROJECT.md` so that central agent rules (`.agents/rules/` and `.agents/workflows/`) can be synced via Git Submodule without touching project settings.
 
 ## Project Context & Metadata Binding (Solution 1)
 
@@ -19,7 +19,7 @@ When evaluating instructions, rules, and workflows, the AI agent MUST resolve co
 │ LEVEL 1: System Defaults (~/.gemini/config/AGENTS.md)                       │
 │  └── User-wide preferences across all projects                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ LEVEL 2: Core Directives (.agents/core/rules/ & .agents/core/workflows/)    │
+│ LEVEL 2: Core Directives (.agents/rules/ & .agents/workflows/)              │
 │  └── Universal rules & workflows synced via Git Submodule                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ LEVEL 3: Project Specifications (.agents/PROJECT.md)                        │
