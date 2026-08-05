@@ -15,18 +15,18 @@ Before modifying any styling or markup:
 
 1. **JSON Pre-Flight Plan:** Output the JSON plan schema as required by `rules/workflow.md`. Audit relevant sources (`AGENTS.md`, `rules/new-react-components.md`, `rules/seo.md`).
 2. **Behavior Analysis:** Analyze the existing component's prop interface, callbacks, hooks, and internal state. The redesign **must not** break existing behavior or consumer props.
-3. **Shadcn Component Check:** Replace custom elements with standard Shadcn UI components where beneficial.
-4. **GSAP Skills Check:** Check local GSAP skills for complex animations.
+3. **Component Library Check:** Replace custom elements with standard `PROJECT["project_context_and_metadata"]["component_library"]` UI components where beneficial.
+4. **Animation Skills Check:** Check `PROJECT["project_context_and_metadata"]["animation_library"]` skills for complex animations.
 5. **Rendering Strategy Check:** Maintain existing component rendering boundaries. Isolate interactive elements into separate client/leaf modules if required by the framework.
 
 ---
 
 ## Phase 2: Implementation & Styling
 
-1. **Styling:** Exclusively use Shadcn CSS variables and Tailwind logical properties. Merge classes with `cn(...)` (`rules/new-react-components.md`).
+1. **Styling:** Exclusively use CSS variables specified in `PROJECT["project_context_and_metadata"]["style_file_dir"]` and Tailwind logical properties. Merge classes with `cn(...)` (`rules/new-react-components.md`).
 2. **Loading Skeletons & CLS Prevention:** Update corresponding `<Skeleton>` fallbacks to match new dimensions exactly.
 3. **Responsive Layouts:** Ensure responsiveness across mobile, tablet, and desktop layout variants.
-4. **Animations:** Use GSAP for complex timelines, referencing GSAP skills when applicable.
+4. **Animations:** Use `PROJECT["project_context_and_metadata"]["animation_library"]` for complex timelines, referencing animation skills when applicable.
 5. **Asset Optimization:** Use framework-optimized image components or standard optimized assets.
 
 ---

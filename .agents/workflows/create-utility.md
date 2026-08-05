@@ -9,14 +9,14 @@ description: Steps and rules to follow when creating utility functions including
 Before writing any code:
 
 1. **JSON Pre-Flight Plan:** Output the JSON plan schema as required by `rules/workflow.md`. Audit relevant sources (`AGENTS.md`, `rules/core-stack.md`, `rules/documentation.md`).
-2. **Avoid Duplication:** Scan existing utilities under [Utility dir](@/AGENTS.md#project-context--metadata) to see if a similar function exists.
+2. **Avoid Duplication:** Scan existing utilities under directory specified in `PROJECT["project_context_and_metadata"]["utility_dir"]` to see if a similar function exists.
 3. **Purity Design:** Design the utility to be a pure function (deterministic, free of side-effects) whenever possible, facilitating testing and cacheability.
 
 ---
 
 ## Phase 2: Architectural Placement & Types
 
-1. **Directory Placement:** Store global utilities under [Utility dir](@/AGENTS.md#project-context--metadata). Store module-specific utilities within the immediate folder.
+1. **Directory Placement:** Store global utilities under directory specified in `PROJECT["project_context_and_metadata"]["utility_dir"]`. Store module-specific utilities within the immediate folder.
 2. **Type Safety:** Write fully typed TypeScript functions avoiding `any` or `@ts-ignore` as dictated by `rules/core-stack.md`. Ensure E2E type safety with generated backend/CMS interfaces if applicable.
 3. **Imports Standard:** Always import packages and files relative to the project root using `@/` path aliases.
 

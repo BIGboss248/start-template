@@ -7,18 +7,18 @@ description: Guidelines for creating new react components mandatory when decidin
 
 ## Component Reuse First
 
-* Before creating any new component, you **MUST** search the codebase (especially [new components dir](@/AGENTS.md#project-context--metadata) and [component library](@/AGENTS.md#project-context--metadata)) for existing components that can be reused, adapted, or extended.
+* Before creating any new component, you **MUST** search the codebase (especially directory specified in `PROJECT["project_context_and_metadata"]["new_component_dir"]` and component library in `PROJECT["project_context_and_metadata"]["component_library"]`) for existing components that can be reused, adapted, or extended.
 * You are **strictly forbidden** from creating a new component if an existing component can perform the requested task, or can be modified, refactored, or extended (e.g., by adding optional props, parameters, generic types, or configurable CSS classes) to do so without breaking existing consumers.
 * Creating a new component is a measure of absolute last resort, allowed **ONLY** when no other component in the workspace can fulfill the required capability and adapting existing ones is structurally impossible.
 
 ## component save dir
 
-* **Placement:** Store and categorize all new components under [new components dir](@/AGENTS.md#project-context--metadata).
+* **Placement:** Store and categorize all new components under `PROJECT["project_context_and_metadata"]["new_component_dir"]`.
 * **Imports:** Always import packages and files relative to the project root (e.g., using `@/` path).
 
 ## Component styling
 
-* **centeral design**: The project uses [Style file](@/AGENTS.md#project-context--metadata) CSS variable and tailwind token system. Do NOT use hardcoded Tailwind color scales (e.g., `bg-blue-500`) unless explicitly requested. Strictly use semantic theme tokens (e.g., `bg-background`, `text-muted-foreground`, `border-border`) to ensure perfect compatibility across Light and Dark modes. Chosen colors must pass accessibility contrast ratios in both modes.
+* **centeral design**: The project uses CSS variable and tailwind token system specified in `PROJECT["project_context_and_metadata"]["style_file_dir"]`. Do NOT use hardcoded Tailwind color scales (e.g., `bg-blue-500`) unless explicitly requested. Strictly use semantic theme tokens (e.g., `bg-background`, `text-muted-foreground`, `border-border`) to ensure perfect compatibility across Light and Dark modes. Chosen colors must pass accessibility contrast ratios in both modes.
 * **Strict Class Merging:** NEVER concatenate Tailwind classes using standard template literals. Always use the `cn()` utility function (which wraps `clsx` and `tailwind-merge`) to resolve styling conflicts, especially when exposing `className` props in reusable components.
 * **RTL & Logical Properties:** You **must** use Tailwind's logical classes that respect direction (e.g., use `ms` instead of `ml`, `pe` instead of `pr`). The usage of physical directional classes (like `ml`, `pr`, `left`, `right`) is FORBIDDEN to ensure the layout mirrors correctly when switching directions.
 
@@ -26,7 +26,7 @@ description: Guidelines for creating new react components mandatory when decidin
 
 * **Animation Hierarchy:**
   * **Micro-interactions:** Use standard Tailwind CSS transitions (e.g., `transition-all hover:scale-105`) for simple hover states, focus rings, or basic toggles.
-  * **Complex Animations:** Use [Animation library](@/AGENTS.md#project-context--metadata) only for complex sequence timelines or scroll-triggered animations.
+  * **Complex Animations:** Use animation library specified in `PROJECT["project_context_and_metadata"]["animation_library"]` only for complex sequence timelines or scroll-triggered animations.
 * **Constraint:** Animations must never negatively impact Core Web Vitals or SEO.
 
 ## Responsive Design

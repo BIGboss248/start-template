@@ -1,12 +1,31 @@
 # Agent Directives & Layered Context Routing
 
 > [!IMPORTANT]
-> **SINGLE SOURCE OF TRUTH FOR AI AGENT**: This file acts as the universal entry point and routing hub for the AI agent. Project-specific metadata is isolated in `.agents/PROJECT.md` so that central agent rules (`.agents/rules/` and `.agents/workflows/`) can be synced via Git Submodule without touching project settings.
+> **SINGLE SOURCE OF TRUTH FOR AI AGENT**: This file acts as the universal entry point and routing hub for the AI agent. Project-specific metadata is isolated in `.agents/PROJECT.json` so that central agent rules (`.agents/rules/` and `.agents/workflows/`) can be synced via Git Submodule without touching project settings.
 
 ## Project Context & Metadata Binding (Solution 1)
 
 *Before planning or executing tasks, read the active project's specific architecture, database, framework, and client details from:*
-👉 **[PROJECT.md](file:///.agents/PROJECT.md)** *(Isolated project data — preserved across rule updates)*
+👉 **[PROJECT.json](file:///.agents/PROJECT.json)** *(Isolated project JSON data — preserved across rule updates)*
+
+### Interpreting Project Specifications (`PROJECT[...]`)
+
+When agent rules or workflows reference a project specification key (e.g., `PROJECT["project_context_and_metadata"]["<key>"]`), the AI agent MUST interpret and apply the specification using the following directives:
+
+1. **JSON Parsing & Key Resolution:**
+   - Read `.agents/PROJECT.json` during the Pre-Flight Planning phase.
+   - Traverse the JSON hierarchy matching `PROJECT["<section>"]["<key>"]` or `PROJECT["<key>"]` references in rules/workflows to their corresponding values in `.agents/PROJECT.json`.
+   - String values containing bracket placeholders (e.g., `"[e.g., Next.js 14+ (App Router)]"`) provide example defaults. When concrete values are set in `PROJECT.json`, strictly honor those values; otherwise, adapt to the active technology layer indicated.
+
+2. **Key-to-Directive Execution Mapping:**
+   - **`framework_and_version`**: Determines framework-specific rule loading (e.g., if Next.js, load `.agents/rules/framework-nextjs.md` and `.agents/workflows/nextjs-create-component.md`).
+   - **`new_component_dir`**: Target directory path for storing and categorizing new React components.
+   - **`component_library`**: Primary UI component library (e.g., `Shadcn UI`). Re-use components from this library before creating custom ones.
+   - **`style_file_dir`**: Main CSS/styling file (e.g., `@/globals.css`). Use theme variables and Tailwind logical tokens derived from this file.
+   - **`animation_library`**: Primary library for complex sequence and scroll animations (e.g., `GSAP`).
+   - **`utility_dir`**: Target directory for global pure functions, API helpers, and server utility modules.
+   - **`supported_languages`**: Controls internationalization (i18n), text direction (`dir="rtl"` vs `dir="ltr"`), and `Intl` formatting defaults.
+   - **`client_data_file` & `project_info_file`**: Pointer paths to client info and sitemap route specs for dynamic page metadata and Schema.org generation.
 
 ---
 
@@ -22,7 +41,7 @@ When evaluating instructions, rules, and workflows, the AI agent MUST resolve co
 │ LEVEL 2: Core Directives (.agents/rules/ & .agents/workflows/)              │
 │  └── Universal rules & workflows synced via Git Submodule                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ LEVEL 3: Project Specifications (.agents/PROJECT.md)                        │
+│ LEVEL 3: Project Specifications (.agents/PROJECT.json)                       │
 │  └── Project context, active database, framework, client info, site map      │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ LEVEL 4: Project Overrides (.agents/rules/!<file>.md & /workflows/!<file>.md)│
@@ -96,7 +115,7 @@ To maximize IDE indexing and slash-command discovery without nested subdirectori
 - **Framework Rules**: Prefix with `framework-<name>.md` inside `.agents/rules/`
 - **Framework Workflows**: Prefix with `<name>-<workflow>.md` inside `.agents/workflows/`
 
-*Inspect **`Framework & Version`** in [.agents/PROJECT.md](file:///.agents/PROJECT.md). Load ONLY the matching framework directive below and ignore non-active framework files.*
+*Inspect **`framework_and_version`** key in `PROJECT["project_context_and_metadata"]["framework_and_version"]` from [.agents/PROJECT.json](file:///.agents/PROJECT.json). Load ONLY the matching framework directive below and ignore non-active framework files.*
 
 ### Framework Rules (`.agents/rules/framework-*.md`)
 - **Next.js**: [framework-nextjs.md](.agents/rules/framework-nextjs.md) [MANDATORY when working in Next.js]:

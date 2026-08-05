@@ -1,0 +1,52 @@
+{
+  "project_context_and_metadata": {
+    "project_name": "[Project Name]",
+    "framework_and_version": "[e.g., Next.js 14+ (App Router)]",
+    "cms_integration": "[e.g., Payload CMS 3.0 (Self-hosted inside Next.js) / None]",
+    "primary_database": "[e.g., PostgreSQL (via Prisma / Drizzle) / MongoDB]",
+    "supported_languages": "[e.g., English (LTR), Persian (RTL bidirectional support)]",
+    "package_manager": "[e.g., Bun]",
+    "primary_styling_tool": "[e.g., Tailwind CSS / Vanilla CSS]",
+    "hosting_and_infrastructure": "[e.g., Docker Container deployed to VPS via Caprover]",
+    "cicd_pipelines": "[e.g., GitHub Actions (ci.yml for pull requests, cd.yml for Semantic Release and Docker builds)]",
+    "new_component_dir": "[e.g., ./components/custom components]",
+    "component_library": "[e.g., Shadcn]",
+    "client_data_file": {
+      "path": "[e.g., @/constants/clientInfo.ts]",
+      "includes": [
+        "Social media links, phone numbers, and addresses.",
+        "Business details and contact info."
+      ]
+    },
+    "project_info_file": {
+      "path": "[e.g., @/constants/projectInfo.ts]",
+      "source_reference": "docs/sitemap-architecture.md",
+      "includes": [
+        "Page Name: [e.g., Home, Blog Post]",
+        "Route Path: [e.g., / or /blog/[slug]]",
+        "Page metadata and Schema.org attributes.",
+        "Access Level / Auth Requirement",
+        "Redirects & Rewrites",
+        "Dynamic Route Parameters",
+        "Global website metadata."
+      ]
+    },
+    "style_file_dir": "[e.g., @/globals.css]",
+    "animation_library": "[e.g., GSAP]",
+    "utility_dir": "[e.g., src/utilities]"
+  },
+  "workspace_documentation_references": {
+    "client_discovery_doc": {
+      "path": "docs/client-requirements.md",
+      "description": "Form answers from Phase 0"
+    },
+    "technical_stack_doc": {
+      "path": "docs/tech-stack.md",
+      "description": "Architecture choices from Phase 1"
+    },
+    "sitemap_and_caching_spec": {
+      "path": "docs/sitemap-architecture.md",
+      "description": "Route maps and delivery profiles from Phase 2"
+    }
+  }
+}

@@ -30,11 +30,11 @@ description: Next.js App Router, React Server Components (RSC), Payload CMS, ISR
 
 ## Component caching
 
-* **Rendering Strategy:** The preferred rendering strategy is Incremental Static Regeneration (ISR). Refer to the [Next.js ISR guide](node_modules/next/dist/docs/02-pages/02-guides/incremental-static-regeneration.md) if the [project framewrok](@/AGENTS.md#project-context--metadata). **Never cache content if it introduces a security risk.** Do not cache user-specific data or routes containing sensitive transactional information.
+* **Rendering Strategy:** The preferred rendering strategy is Incremental Static Regeneration (ISR). Refer to the [Next.js ISR guide](node_modules/next/dist/docs/02-pages/02-guides/incremental-static-regeneration.md) if `PROJECT["project_context_and_metadata"]["framework_and_version"]` requires ISR. **Never cache content if it introduces a security risk.** Do not cache user-specific data or routes containing sensitive transactional information.
 
 ## NextJS specific
 
-If [framework](@/AGENTS.md#project-context--metadata) is NextJS use their own optimized components to create new components or pages (e.g, use `Image`, `Link`)
+If `PROJECT["project_context_and_metadata"]["framework_and_version"]` is Next.js, use their own optimized components to create new components or pages (e.g., use `Image`, `Link`).
 
 ## Route Navigation Progress & Streaming
 

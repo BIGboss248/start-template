@@ -8,11 +8,11 @@ description: Steps and rules to follow when designing and creating React compone
 
 Refer to these variables when needed
 
-- `components_dir`: `/src/components/` or `./components/`
-- `component_libray`: shadcn
-- `animation_library`: Gsap
-- `new_components_dir`: `/src/components/CustomComponents/`
-- `styles_file`: `globals.css`
+- `components_dir`: `PROJECT["project_context_and_metadata"]["new_component_dir"]`
+- `component_library`: `PROJECT["project_context_and_metadata"]["component_library"]`
+- `animation_library`: `PROJECT["project_context_and_metadata"]["animation_library"]`
+- `new_components_dir`: `PROJECT["project_context_and_metadata"]["new_component_dir"]`
+- `styles_file`: `PROJECT["project_context_and_metadata"]["style_file_dir"]`
 
 ---
 
@@ -21,8 +21,8 @@ Refer to these variables when needed
 Before writing any code:
 
 1. **JSON Pre-Flight Plan:** Output the JSON plan schema as required by `rules/workflow.md`. Audit relevant sources (`AGENTS.md`, `rules/new-react-components.md`, `rules/documentation.md`).
-2. **Component Inventory Check (MANDATORY):** Search `components_dir` for an existing component to reuse/extend before proposing a new one. Update consumers if changing an existing API.
-3. **`component_libray` Check (MANDATORY):** Prefer `component_libray` components over custom building.
+2. **Component Inventory Check (MANDATORY):** Search `PROJECT["project_context_and_metadata"]["new_component_dir"]` for an existing component to reuse/extend before proposing a new one. Update consumers if changing an existing API.
+3. **`component_library` Check (MANDATORY):** Prefer `PROJECT["project_context_and_metadata"]["component_library"]` components over custom building.
 4. **SEO Advisor Check:** Use semantic elements if the component has SEO impact.
 5. **Skill loading:** Based on user requests load relevant skills.
 
@@ -30,13 +30,13 @@ Before writing any code:
 
 ## Phase 2: Create the component
 
-1. **Directory Placement:** Create component folder in the [new component dir](@/AGENTS.md#project-context--metadata) and categorize them by the page that the component is used in (e.g., [new component dir](@/AGENTS.md#project-context--metadata)).
+1. **Directory Placement:** Create component folder in `PROJECT["project_context_and_metadata"]["new_component_dir"]` and categorize them by the page that the component is used in.
 2. **Code:**
 
-- Create the component using semantic HTML, Exclusively use [Style file dir](@/AGENTS.md#project-context--metadata), Create separate versions of the component for mobile and tablet saving them as `[ComponentName]Tablet` and `[ComponentName]Mobile` and configuring so each one is rendered on the related screen.
+- Create the component using semantic HTML, Exclusively use `PROJECT["project_context_and_metadata"]["style_file_dir"]`, Create separate versions of the component for mobile and tablet saving them as `[ComponentName]Tablet` and `[ComponentName]Mobile` and configuring so each one is rendered on the related screen.
 - Variables and tailwind tokens, use Tailwind logical properties.
 - Merge classes with `cn(...)` (`rules/new-react-components.md`).
-- Use [Animation library](../../AGENTS.md#project-context--metadata) for animations.
+- Use `PROJECT["project_context_and_metadata"]["animation_library"]` for animations.
 
 1. **Rendering Strategy Check:** Select appropriate rendering strategy (SSR, SSG, ISR, CSR) based on component requirements.
 2. **Caching Configuration:** Setup caching if the component data is cacheable.
@@ -46,8 +46,8 @@ Before writing any code:
 ## Phase 3: Implementation & Styling (UI, UX, and i18n)
 
 1. **Loading States (MANDATORY):** Create skeleton components matching content dimensions and `<Suspense>` boundaries. Store it as `[component name]Skeleton` (`[component name]TabletSkeleton`, `[component name]MobileSkeleton` for tablet and mobile).
-2. **i18n & Formatting:** Create dictionary files of [Supported Languages](../../AGENTS.md#project-context--metadata) and replace the text in components. Use `Intl` API for formatting (`rules/i18n.md`).
-3. **SEO:** Implement SEO for all [Supported Languages](../../AGENTS.md#project-context--metadata) per [seo.md](../rules/seo.md).
+2. **i18n & Formatting:** Create dictionary files of supported languages in `PROJECT["project_context_and_metadata"]["supported_languages"]` and replace the text in components. Use `Intl` API for formatting (`rules/i18n.md`).
+3. **SEO:** Implement SEO for all supported languages in `PROJECT["project_context_and_metadata"]["supported_languages"]` per [seo.md](../rules/seo.md).
 
 ---
 
